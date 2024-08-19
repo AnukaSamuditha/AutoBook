@@ -15,7 +15,6 @@
     display:flex;
     justify-content: space-around;
     align-items: center;
-    
 }
 .nav-items-container{
     width:40%;
@@ -45,4 +44,218 @@
 .logo{
     font-size:20px;
     font-weight:800;
+}
+
+/*Seller Dashboard styles starts here*/
+
+.dashboard--holder{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+    height:100%;
+    margin-top: 5%;
+    margin-left:3%;
+    gap:3%;
+}
+.left--menu{
+    width:20%;
+    height:100%;
+    min-height:100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius:16px;
+    background-color: #E0E5B6;
+
+}
+.shops--title{
+    margin-top:10%;
+    width:100%;
+    height:5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:3%;
+}
+.shopTitle{
+    font-size:15px;
+    font-weight: bold;
+    opacity: 0.7;
+    cursor: pointer;
+}
+.shop--icon{
+    opacity: 0.7;
+}
+.right--menu{
+    width:75%;
+    height:100%;
+    min-height:100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: left;
+    margin-right:5%;
+    
+}
+.seller-profile--holder{
+    width:40%;
+    height:30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top:10%;
+}
+.seller--profile--photo{
+    width:100%;
+    height: 100%;
+    object-fit: cover;
+}
+.seller--name{
+    font-size: 30px;
+    font-weight: bold;
+    color:black;
+    
+}
+.seller--full--name{
+    font-size: 17px;
+    font-weight: bold;
+    margin-top: 3%;
+    
+}
+.section--01{
+    width:100%;
+    height:5%;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.create--shop--button{
+    width:140px;
+    height:48px;
+    border-radius: 1000px;
+    background-color: #173B45;
+    color:white;
+    font-size: 16px;
+    border:none;
+    font-weight: 500;
+    cursor: pointer;
+    transition-duration: 0.7s;
+}
+.create--shop--button:active{
+    transform: scale(0.9);
+}
+.section--02{
+    width:100%;
+    height:100%;
+    margin-top:3%;
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap:4%;
+    flex-wrap: wrap;
+}
+
+/*Shop styles starts from here*/
+.shop--container{
+    width:30%;
+    height:320px;
+    border-radius:32px 0 32px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding:1%;
+    margin-bottom: 4%;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    transition-duration:0.9s;
+}
+.shop--container:hover{
+    border-radius:0 32px 0 32px;
+}
+
+.first--half{
+    width:100%;
+    height:80%;
+    border-radius:32px 0 32px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #B5CFB7;
+    transition-duration:0.9s ;
+}
+.shop--container:hover .first--half{
+    border-radius:0 32px 0 32px;
+}
+.second--half{
+    width:100%;
+    height:20%;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top:3%;
+}
+.shop--upper{
+    width:90%;
+    height:10%;
+    margin-top:4%;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+.date{
+    font-size:14px;
+   
+}
+.shop--name--container{
+    width:100%;
+    height:10%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin-top:10%;
+   
+
+}
+.shop--name{
+    font-size:25px;
+    font-weight:800;
+
+}
+.analytic--section{
+    width:100%;
+    height:25%;
+    display:flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top:6%;
+}
+.sales--box{
+    width:25%;
+    min-height:60px;
+    height:100%;
+    border-radius:16px;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.second--title{
+    font-size:17px;
+    
+}
+.manage--button{
+    width:30%;
+    height:60%;
+    border-radius:1000px;
+    background-color:black ;
+    color:white;
+    border:none;
+    font-weight: 500;
+    cursor: pointer;
+
 }
