@@ -6,8 +6,6 @@ export default function SellerDashboard(){
 
     const[shops,setShops]=useState([]);
 
-
-
     function createShop(){
         
         setShops((prevShops)=>{
@@ -22,6 +20,7 @@ export default function SellerDashboard(){
     return (
         <div>
             <NavBar/>
+            
             <div className='dashboard--holder'>
                 <div className='left--menu'>
                     <div className='seller-profile--holder'>
