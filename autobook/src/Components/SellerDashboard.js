@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import NavBar from './NavBar';
 import Shop from './Shop';
+import CreateShop from './CreateShop';
 
 export default function SellerDashboard(){
 
     const[shops,setShops]=useState([]);
+    const[popupForm,setPopupForm]=useState(false);
 
     function createShop(){
         
@@ -14,13 +16,17 @@ export default function SellerDashboard(){
 
     }
 
+    function togglePopupForm(){
+        setPopupForm((prevPopupForm)=>!prevPopupForm);
+    }
+
     const shopArray=shops.map((shop)=>shop);
 
 
     return (
-        <div>
+        <div className='seller--dashboard--holder'>
             <NavBar/>
-            
+            {popupForm === true && <CreateShop/>}
             <div className='dashboard--holder'>
                 <div className='left--menu'>
                     <div className='seller-profile--holder'>
@@ -35,7 +41,7 @@ export default function SellerDashboard(){
                 <div className='right--menu'>
                     <div className='section--01'>
                       <h3 className='seller--name'>Hi Anuka!</h3>
-                      <button className='create--shop--button' onClick={createShop}>New Shop</button>
+                      <button className='create--shop--button' onClick={togglePopupForm}>New Shop</button>
                     </div>
                     <div className='section--02'>
                        {shopArray}

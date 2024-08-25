@@ -1,4 +1,5 @@
 import React,{useState} from 'react';
+import Axios from 'axios'
 
 export default function CreateShop(){
     const [formData,setFormData]=useState({
@@ -24,13 +25,46 @@ export default function CreateShop(){
             }
         })
     }
+    function handleSubmit(event){
+      event.preventDefault();
+
+      Axios.post('http://localhost:3001/create-shop',{
+        shopName:formData.shopName,
+        shopDescription:formData.shopDescription,
+        primaryProduct:formData.primaryProduct,
+        contactNumber:formData.contactNumber,
+        shopEmail:formData.shopEmail,
+        isCreditCardAvailable:formData.isCreditCardAvailable,
+        isDebittCardAvailable:formData.isDebittCardAvailable,
+        isCODAvailable:formData.isCODAvailable
+
+      }).then((res)=>{
+        console.log("The shop is created successfully",res.data);
+      }).catch((err)=>{
+        console.error("There was a failure in shop creation",err.message);
+      })
+
+      setFormData((prevFormData)=>{
+        return {
+        shopName:"",
+        shopDescription:"",
+        primaryProduct:"",
+        contactNumber:"",
+        shopEmail:"",
+        isCreditCardAvailable:false,
+        isDebittCardAvailable:false,
+        isCODAvailable:false
+        }
+      })
+      
+    }
     return(
         <div className='form--container'>
             <div className='form--Info'>
                 <h3 className='form--title'>Build the Future of Automotive Commerce.</h3>
                 <p className='form-description'>The road to the future is paved with innovation and dedication. Build your shop today and become a key player in the automotive industry, offering products and solutions that drive the future forward.</p>
             </div>
-            <form className='form'>
+            <form className='form' onSubmit={handleSubmit}>
                      <div className='sector--1'>
                      <label htmlFor="shopName">Shop Name<span className='star--mark'>*</span></label><br/>
                      <input 
@@ -82,9 +116,9 @@ export default function CreateShop(){
                      </div>
 
                      <div className='sector--2'>
-                        <label htmlFor='paymentOptions'>Payment Methods</label><br/>
+                        <h4 className='payment--methods'>Payment Methods</h4>
                         <div className='payment--option--holder'>
-                            <label htmlFor='isCreditCardAvailable'>Credit Card</label>
+                            <label htmlFor='isCreditCardAvailable' className='payment--label'>Credit Card</label>
                             <input 
                               type='checkbox'
                               id='isCreditCardAvailable'
@@ -92,7 +126,7 @@ export default function CreateShop(){
                               onChange={handleChange}
                               checked={formData.isCreditCardAvailable}
                             /><br/>
-                            <label htmlFor='isDebittCardAvailable'>Debit Card</label>
+                            <label htmlFor='isDebittCardAvailable' className='payment--label'>Debit Card</label>
                             <input 
                               type='checkbox'
                               id='isDebittCardAvailable'
@@ -100,7 +134,7 @@ export default function CreateShop(){
                               onChange={handleChange}
                               checked={formData.isDebittCardAvailable}
                             /><br/>
-                            <label htmlFor='isCODAvailable'>Cash On Delivery</label>
+                            <label htmlFor='isCODAvailable' className='payment--label'>Cash On Delivery</label>
                             <input 
                               type='checkbox'
                               id='isCODAvailable'
@@ -112,11 +146,26 @@ export default function CreateShop(){
                         </div>
                         <h3 className='subscription--plan--title'>Select a subscription plan</h3>
                         <div className='plans--container'>
-                            <div className='plan-1'>
+                            <div className='plan'>
+                              <h5 className='plan--Name'>Starter Gear</h5>
+                              <div className='plan--price--holder'>
+                                <h3 className='plan--price'>$10</h3>
+                                <small className='plan--duration--text'>/per month</small>
+                              </div>
+
+                            </div>
+                            <div className='plan'>
+                              <h5 className='plan--Name'>Starter Gear</h5>
+
+                            </div>
+                            <div className='plan'>
+                              <h5 className='plan--Name'>Starter Gear</h5>
 
                             </div>
                         </div>
-
+                        <div className='submit--button--holder'>
+                          <button className='submit--button'>Create Shop</button>
+                        </div>
                      </div>
 
             </form>
