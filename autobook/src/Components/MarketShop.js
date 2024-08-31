@@ -1,33 +1,30 @@
-import React,{useState} from "react";
-import BellIconWhite from '../Images/bell--white.svg'
-import BellNotifyWhite from '../Images/bell--notify--white.svg';
+import React from 'react';
 
-export default function Shop() {
-  const [notification,setNotification]= useState(false)
 
-  function toggleBellIcon(){
+export default function MarketShop(props){
 
-    setNotification((preValue)=>!preValue)
-  }
-  return (
-    <div className="shop--container">
+    console.log(props.shopName)
+
+    
+    return(
+        <div className="shop--container">
       <div className="first--half">
          <div className="shop--upper">
           <h5 className="city">Colombo</h5>
           <div className="bell--holder">
-          <img src={notification ? BellNotifyWhite : BellIconWhite} className="bell--icon" alt="bell--icon" onClick={toggleBellIcon}/>
+          <img src={require('../Images/bookmark.svg').default} className='bell--icon'/>
           </div>
          </div>
          <div className="shop--name--container">
-          <h5 className="shop--name">The Tire Shop</h5>
+          <h5 className="shop--name">{props.shopName}</h5>
          </div>
          <div className="product--category--container">
-          <h4 className="product--category">Tire</h4>
+          <h4 className="product--category">{props.primaryProduct}</h4>
          </div>
          <div className="payment--methods--container">
-          <div className="method">Credit</div>
-          <div className="method">Debit</div>
-          <div className="method">COD</div>
+          {props.creditCard && <div className="method">Credit</div>}
+          {props.debitCard && <div className="method">Debit</div>}
+          {props.COD && <div className="method">COD</div>}
          </div>
          <div className="analytic--section">
           <div className="sales--box">
@@ -47,9 +44,9 @@ export default function Shop() {
         </div>
       </div>
       <div className="second--half">
-        <h1 className="second--title">Manage the shop</h1>
+        <h1 className="second--title">Explore products</h1>
         <button className="manage--button">Manage</button>
       </div>
     </div>
-  );
+    )
 }

@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import Axios from 'axios'
 
-export default function CreateShop(){
+export default function CreateShop(props){
     const [formData,setFormData]=useState({
         shopName:"",
         shopDescription:"",
@@ -10,7 +10,8 @@ export default function CreateShop(){
         shopEmail:"",
         isCreditCardAvailable:false,
         isDebittCardAvailable:false,
-        isCODAvailable:false
+        isCODAvailable:false,
+        createdDate:""
 
     })
 
@@ -36,7 +37,8 @@ export default function CreateShop(){
         shopEmail:formData.shopEmail,
         isCreditCardAvailable:formData.isCreditCardAvailable,
         isDebittCardAvailable:formData.isDebittCardAvailable,
-        isCODAvailable:formData.isCODAvailable
+        isCODAvailable:formData.isCODAvailable,
+        createdDate:new Date()
 
       }).then((res)=>{
         console.log("The shop is created successfully",res.data);
@@ -56,6 +58,7 @@ export default function CreateShop(){
         isCODAvailable:false
         }
       })
+      props.toggleForm()
       
     }
     return(
@@ -164,7 +167,7 @@ export default function CreateShop(){
                             </div>
                         </div>
                         <div className='submit--button--holder'>
-                          <button className='submit--button'>Create Shop</button>
+                          <button className='submit--button' >Create Shop</button>
                         </div>
                      </div>
 

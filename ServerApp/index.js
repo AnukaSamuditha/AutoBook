@@ -41,6 +41,23 @@ app.post('/create-shop',async(req,res)=>{
     }
 
 })
+app.get('/get-shops',async(req,res)=>{
+    const shops=await Shop.find({})
+    try{
+        res.status(200).json({
+            status:'Success',
+            shops:{
+                shops
+            }
+        })
+    }catch(err){
+        res.status(500).json({
+            status:'Failed',
+            message:err
+        })
+    }
+})
+
 app.listen(3001,()=>{
     console.log("Server is listening...");
 })

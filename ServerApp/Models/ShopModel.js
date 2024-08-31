@@ -32,6 +32,10 @@ const ShopSchema= new mongoose.Schema({
     isCODAvailable:{
         type:Boolean,
         required:true
+    },
+    createdDate:{
+        type:String,
+        required:true
     }
 
 })

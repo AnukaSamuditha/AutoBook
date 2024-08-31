@@ -7,7 +7,7 @@ export default function NavBar(){
            <h4 className='logo'>AutoBook</h4>
            <div className='nav-items-container'>
             <Link to='/' className='nav-item'>Home</Link>
-            <Link to='/about' className='nav-item'>About</Link>
+            <Link to='/marketplace' className='nav-item'>About</Link>
             <Link to='/sellerdashboard' className='nav-item'>Shop</Link>
             <Link to='/guides' className='nav-item'>Guides</Link>
             <Link to='/community' className='nav-item'>Community</Link>
