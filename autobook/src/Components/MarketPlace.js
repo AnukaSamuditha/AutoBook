@@ -21,7 +21,6 @@ export default function MarketPlace() {
     },[])
 
     
-
     const shopsArray=shops.map((shop)=>{
        return <MarketShop 
           key={shop.id}
@@ -47,7 +46,8 @@ export default function MarketPlace() {
     useEffect(()=>{
 
         if(searchValue){
-            const filteredShops=shops.filter((shop)=>shop.shopName.toLowerCase().includes(searchValue.toLowerCase()));
+            const filteredShops=shops.filter((shop)=>shop.shopName.toLowerCase().includes(searchValue.toLowerCase())||
+            shop.primaryProduct.toLowerCase().includes(searchValue.toLowerCase())) 
             setSearchShops(filteredShops)
         }
         else{

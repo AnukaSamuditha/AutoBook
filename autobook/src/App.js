@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route} from "react-router-dom";
 import Home from "./Components/Home";
 import SellerDashboard from "./Components/SellerDashboard";
 import MarketPlace from "./Components/MarketPlace";
-
+import SellerRegisterForm from "./Components/SellerRegisterForm";
 
 export default function App() {
   return (
@@ -12,6 +12,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/sellerdashboard" element={<SellerDashboard/>}/>
         <Route path="/marketplace" element={<MarketPlace/>}/>
+        <Route path="/sellerRegister" element={<SellerRegisterForm/>}/>
       </Routes>
     </BrowserRouter>
   );
