@@ -6,14 +6,21 @@ import Axios from 'axios';
 
 export default function MarketPlace() {
     const [shops,setShops]=useState([])
+    const [searchShops,setSearchShops]=useState([])
+    const [searchValue,setSearchValue]=useState("")
+
 
     useEffect(()=>{
         Axios.get('http://localhost:3001/get-shops').then((res)=>{
            setShops(res.data.shops.shops)
+           setSearchShops(res.data.shops.shops)
            console.log(res.data.shops.shops)
            console.log(shops)
         })
+        
     },[])
+
+    
 
     const shopsArray=shops.map((shop)=>{
        return <MarketShop 
@@ -26,6 +33,36 @@ export default function MarketPlace() {
           />
     })
 
+    const searchedShopsArray=searchShops.map((shop)=>{
+        return <MarketShop
+          key={shop.id}
+          shopName={shop.shopName}
+          primaryProduct={shop.primaryProduct}
+          creditCard={shop.isCreditCardAvailable}
+          debitCard={shop.isDebitCardAvailable}
+          COD={shop.isCODAvailable}
+          />
+    })
+
+    useEffect(()=>{
+
+        if(searchValue){
+            const filteredShops=shops.filter((shop)=>shop.shopName.toLowerCase().includes(searchValue.toLowerCase()));
+            setSearchShops(filteredShops)
+        }
+        else{
+            setSearchShops(shops)
+        }
+    },[searchValue,shops]);
+
+    function handleChange(event){
+
+        setSearchValue(event.target.value);
+            
+    }
+
+    
+
   return (
     <div>
       <NavBar />
@@ -37,7 +74,7 @@ export default function MarketPlace() {
           Discover top-quality automotive products from trusted sellers, all
           just a click away.
         </p>
-        <form className="search--form">
+        <form className="search--form" >
             <div className="search--bar--holder">
                 <img src={require('../Images/search.svg').default} className="search--icon"/>
                 <input 
@@ -45,6 +82,8 @@ export default function MarketPlace() {
                 className="input--field" 
                 name="shop--name"
                 placeholder="Search for shops by name, category, or, location"
+                onChange={handleChange}
+                
                 />
             </div>
         </form>
@@ -68,7 +107,7 @@ export default function MarketPlace() {
             </ul>
         </div>
         <div className="shops--holder">
-            {shopsArray}
+            {searchShops.length > 0 ? searchedShopsArray : shopsArray}
         </div>
       </div>
     </div>
