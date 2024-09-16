@@ -9,6 +9,8 @@ export default function MarketPlace() {
     const [searchShops,setSearchShops]=useState([])
     const [searchValue,setSearchValue]=useState("")
 
+    
+
 
     useEffect(()=>{
         Axios.get('http://localhost:3001/get-shops').then((res)=>{
@@ -16,11 +18,43 @@ export default function MarketPlace() {
            setSearchShops(res.data.shops.shops)
            console.log(res.data.shops.shops)
            console.log(shops)
+           
         })
         
     },[])
 
-    
+    let lastColor=null;
+
+    function getRandomColor(colors){
+      let randomIndex=Math.floor(Math.random() * colors.length);
+
+      while (colors[randomIndex] === lastColor) {
+        randomIndex = Math.floor(Math.random() * colors.length);
+      }
+
+      lastColor = colors[randomIndex];
+
+      return colors[randomIndex];
+    }
+
+    function colorGenerator(){
+
+      const colorCodes = [
+        "rgba(175, 82, 222, 1)",  // Purple
+        "rgba(0, 199, 190, 1)",   // Cyan
+        "rgba(0, 0, 0, 1)",       // Black
+        "rgba(255, 204, 0, 1)",   // Yellow
+        "rgba(52, 199, 89, 1)",   // Green
+        "rgba(174, 174, 178, 1)"  // Gray
+      ];
+      const color=getRandomColor(colorCodes);
+
+      const styles={
+        backgroundColor:color
+      }
+      return styles;
+    }
+
     const shopsArray=shops.map((shop)=>{
        return <MarketShop 
           key={shop.id}
@@ -29,6 +63,7 @@ export default function MarketPlace() {
           creditCard={shop.isCreditCardAvailable}
           debitCard={shop.isDebitCardAvailable}
           COD={shop.isCODAvailable}
+          styles={colorGenerator()}
           />
     })
 
@@ -40,6 +75,7 @@ export default function MarketPlace() {
           creditCard={shop.isCreditCardAvailable}
           debitCard={shop.isDebitCardAvailable}
           COD={shop.isCODAvailable}
+          styles={colorGenerator()}
           />
     })
 

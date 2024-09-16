@@ -1,4 +1,6 @@
 import React from 'react';
+import NextIcon from '../Images/arrow-right-circle.svg';
+
 
 
 export default function MarketShop(props){
@@ -8,7 +10,7 @@ export default function MarketShop(props){
     
     return(
         <div className="shop--container">
-      <div className="first--half">
+      <div className="first--half" style={props.styles}>
          <div className="shop--upper">
           <h5 className="city">Colombo</h5>
           <div className="bell--holder">
@@ -45,7 +47,7 @@ export default function MarketShop(props){
       </div>
       <div className="second--half">
         <h1 className="second--title">Explore products</h1>
-        <button className="manage--button">Manage</button>
+       <img src={NextIcon} alt='next--icon' className='next--icon'/>
       </div>
     </div>
     )

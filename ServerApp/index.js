@@ -3,6 +3,7 @@ const app=express();
 const {mongoose}=require('mongoose');
 const cors=require('cors');
 const Shop =require('./Models/ShopModel');
+const {sendVerificationCode} =require('./Modules/SendEmails');
 
 app.use(express.json());
 app.use(cors());
@@ -55,6 +56,19 @@ app.get('/get-shops',async(req,res)=>{
             status:'Failed',
             message:err
         })
+    }
+})
+
+app.post('/send-verification-email',(req,res)=>{
+    const {email} =req.body;
+
+    try{
+        const OTPCode=sendVerificationCode(email);
+
+        res.json({otpCode:OTPCode});
+    }
+    catch(error){
+        res.status(500).json({message:"Error sending email"});
     }
 })
 

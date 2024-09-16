@@ -127,3 +127,14 @@
     align-items: center;
     
 }
+.next--icon{
+    width:35px;
+    height:35px;
+    object-fit: cover;
+    cursor: pointer;
+    
+}
+.product--category{
+    color: rgba(0, 122, 255, 1);
+
+}

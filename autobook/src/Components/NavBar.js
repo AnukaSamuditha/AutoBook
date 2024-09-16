@@ -9,7 +9,7 @@ export default function NavBar(){
             <Link to='/' className='nav-item'>Home</Link>
             <Link to='/marketplace' className='nav-item'>About</Link>
             <Link to='/sellerdashboard' className='nav-item'>Shop</Link>
-            <Link to='/guides' className='nav-item'>Guides</Link>
+            <Link to='/sellerRegister' className='nav-item'>Guides</Link>
             <Link to='/community' className='nav-item'>Community</Link>
            </div>
            <div className='profile--holder'>
