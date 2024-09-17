@@ -4,6 +4,7 @@ const {mongoose}=require('mongoose');
 const cors=require('cors');
 const Shop =require('./Models/ShopModel');
 const {sendVerificationCode} =require('./Modules/SendEmails');
+const Seller = require('./Models/SellerModel');
 
 app.use(express.json());
 app.use(cors());
@@ -41,6 +42,25 @@ app.post('/create-shop',async(req,res)=>{
         })
     }
 
+})
+
+app.post('/create-seller-account',async(req,res)=>{
+    const seller=new Seller(req.body);
+
+    try{
+        await seller.save();
+        res.status(201).json({
+            status:'Success',
+            data:{
+                seller
+            }
+        })
+    }catch(err){
+        res.status(500).json({
+            status:'Failed',
+            message:err
+        })
+    }
 })
 app.get('/get-shops',async(req,res)=>{
     const shops=await Shop.find({})

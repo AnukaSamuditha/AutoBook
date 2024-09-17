@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import '../Styles/sellerRegisterForm.css';
-import {motion} from 'framer-motion';
+import {motion,AnimatePresence} from 'framer-motion';
 import Axios from 'axios';
 
 export default function SellerRegisterForm(){
@@ -23,6 +23,7 @@ export default function SellerRegisterForm(){
     })
 
     const [OTPCode,setOTPCode]=useState("");
+    const [seller,setSeller]=useState(null);
 
     function handleChange(event){
         const {name,value}=event.target;
@@ -54,14 +55,12 @@ export default function SellerRegisterForm(){
 
         }).then((res)=>{
 
-            setOTPCode(res.otpCode);
+            setOTPCode(res.data.otpCode);
             console.log("Email sent successfully",res.data);
 
         }).catch((err)=>{
             console.log("Error sending email",err.message);
         })
-
-        
 
     }
     function handlePasswordField(event){
@@ -78,13 +77,23 @@ export default function SellerRegisterForm(){
     }
     function handleOTPCode(event){
         const {value}=event.target;
+
         console.log(OTPCode);
+        console.log(value);
 
         if(OTPCode!==value){
             setFieldErrors((prevData)=>{
                 return {
                     ...prevData,
                     verificationCode:"OTP Code does not match!"
+                }
+                
+            })
+        }else{
+            setFieldErrors((prevData)=>{
+                return {
+                    ...prevData,
+                    verificationCode:""
                 }
                 
             })
@@ -162,17 +171,108 @@ export default function SellerRegisterForm(){
             }
            })
 
+    }
+    function fieldEmptyCheck(){
+        const {username,password,rePassword,email,verificationCode}=registerData;
+        var status=true;
 
+        if(username===''){
+            setFieldErrors((prevData)=>{
+                return{
+                    ...prevData,
+                    username:"The username field cannot be empty!"
+                }
+            })
+            status=false;
+        }
+        
+        if(password===''){
+            setFieldErrors((prevData)=>{
+                return{
+                    ...prevData,
+                    password:"The password field cannot be empty!"
+                }
+            })
+            status=false;
+        }
+        
+        if(rePassword===''){
+            setFieldErrors((prevData)=>{
+                return{
+                    ...prevData,
+                    rePassword:"This field cannot be empty!"
+                }
+            })
+            status=false;
+        }
+        
+        if(email===''){
+            setFieldErrors((prevData)=>{
+                return{
+                    ...prevData,
+                    email:"The email field cannot be empty!"
+                }
+            })
+            status=false;
+        } 
+        
+        if(verificationCode===''){
+            setFieldErrors((prevData)=>{
+                return{
+                    ...prevData,
+                    verificationCode:"The verification code field cannot be empty!"
+                }
+            })
+            status=false;
+        }
+
+        return status;
+        
+    }
+ 
+    function handleSubmit(event){
+        event.preventDefault();
+
+        if(fieldEmptyCheck()){
+
+            Axios.post('http://localhost:3001/create-seller-account',{
+                sellerName:registerData.username,
+                sellerPassword:registerData.password,
+                sellerEmail:registerData.email,
+                createdDate:new Date()
+            }).then((res)=>{
+
+                const sellerObject=res.data.data.seller;
+
+                setSeller(sellerObject);
+                localStorage.setItem("currentSeller",JSON.stringify(sellerObject));
+                console.log("Successfully created the seller account",res);
+                
+
+            }).catch((err)=>{
+                console.error("Error creating the seller account: ",err.message);
+            })
+
+            setRegisterData((prevData)=>{
+                return{
+                    username:"",
+                    password:"",
+                    rePassword:"",
+                    email:"",
+                    verificationCode:""
+                }
+            })
+        }
     }
     
     return(
         <div className='form--holder'>
             <div className='form--content--holder'>
                 <h4 className='register--title'>Join Our Network</h4>
-                <form className='seller--register--form' autoComplete='off'>
+                <form className='seller--register--form' autoComplete='off' onSubmit={handleSubmit}>
 
                     <label htmlFor='username' className='form--label'>User Name</label><br/>
-                    <input type='text' name='username' className='input' placeholder='Provide a username' onChange={handleChange}/><br/>
+                    <input type='text' name='username' className='input' placeholder='Provide a username' onChange={handleChange} value={registerData.username}/><br/>
                     {fieldErrors.username && <motion.div
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -184,7 +284,7 @@ export default function SellerRegisterForm(){
                     }
 
                     <label htmlFor='password' className='form--label'>Password</label><br/>
-                    <input type='password' name='password' className='input' placeholder='Enter a strong password' onChange={handleChange} onBlur={handlePasswordField}/><br/>
+                    <input type='password' name='password' className='input' placeholder='Enter a strong password' onChange={handleChange} onBlur={handlePasswordField} value={registerData.password}/><br/>
                     {fieldErrors.password && <motion.div
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -196,7 +296,7 @@ export default function SellerRegisterForm(){
                     }
 
                     <label htmlFor='rePassword' className='form--label'>Re Enter Your Password</label><br/>
-                    <input type='password' name='rePassword' className='input' placeholder='Enter Your Password Again' onChange={handleChange} onBlur={handlePasswordField}/><br/>
+                    <input type='password' name='rePassword' className='input' placeholder='Enter Your Password Again' onChange={handleChange} onBlur={handlePasswordField} value={registerData.rePassword}/><br/>
                     {fieldErrors.rePassword && <motion.div
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -211,7 +311,8 @@ export default function SellerRegisterForm(){
                     <input type='text' name='email' className='input' placeholder='Enter your email address' onChange={handleChange} onBlur={(event)=>{
                         handlePasswordField(event)
                         handleOTPVerification(event)
-                    }}/><br/>
+                    }} value={registerData.email}/><br/>
+
                     {fieldErrors.email && <motion.div
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -223,7 +324,7 @@ export default function SellerRegisterForm(){
                     }
 
                     <label htmlFor='verificationCode' className='form--label'>Verification Code</label><br/>
-                    <input type='text' name='verificationCode' className='input' placeholder='Enter verification code we sent you' onChange={handleChange} onBlur={handleOTPCode}/><br/>
+                    <input type='text' name='verificationCode' className='input' placeholder='Enter verification code we sent you' onChange={handleChange} onBlur={handleOTPCode} value={registerData.verificationCode}/><br/>
                     {fieldErrors.verificationCode && <motion.div
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -240,7 +341,17 @@ export default function SellerRegisterForm(){
 
             </div>
             <div className='form--image--holder'>
-                
+                <AnimatePresence>
+                    <motion.div
+                    key="text"
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 20 }}
+                    transition={{ duration: 2, ease: 'easeInOut' }}
+                    className="animated-text">
+                        Welcome to the seller community
+                    </motion.div>
+                </AnimatePresence>
             </div>
 
         </div>

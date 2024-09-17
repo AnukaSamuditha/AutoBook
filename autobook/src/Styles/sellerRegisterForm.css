@@ -8,7 +8,8 @@
 }
 .form--holder{
     width:65%;
-    height:550px;
+    height:570px;
+    max-height: 600px;
     display:flex;
     justify-content: center;
     gap:5%;
@@ -74,13 +75,21 @@
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
+    margin-top:1%;
+    transition-duration: 0.7s;
+    
+}
+#register--submit--button:active{
+    transform: scale(0.9);
+
 }
 .sign--in--text{
     width:90%;
     height:5%;
     margin-top:2%;
     font-weight: 600;
-    color:rgb(146, 146, 146)
+    color:rgb(146, 146, 146);
+    margin-top:2%;
 }
 #span--register{
     width:10%;
