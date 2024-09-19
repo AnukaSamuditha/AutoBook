@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../Styles/sellerRegisterForm.css';
 import {motion,AnimatePresence} from 'framer-motion';
 import Axios from 'axios';
@@ -24,6 +25,7 @@ export default function SellerRegisterForm(){
 
     const [OTPCode,setOTPCode]=useState("");
     const [seller,setSeller]=useState(null);
+    const navigater=useNavigate();
 
     function handleChange(event){
         const {name,value}=event.target;
@@ -243,11 +245,13 @@ export default function SellerRegisterForm(){
             }).then((res)=>{
 
                 const sellerObject=res.data.data.seller;
+                const sellerID=res.data.data.seller._id;
+                console.log("Seller id is : ",sellerID)
 
                 setSeller(sellerObject);
-                localStorage.setItem("currentSeller",JSON.stringify(sellerObject));
+                localStorage.setItem("currentSeller",sellerID);
                 console.log("Successfully created the seller account",res);
-                
+                navigater('/shop');
 
             }).catch((err)=>{
                 console.error("Error creating the seller account: ",err.message);
@@ -262,6 +266,7 @@ export default function SellerRegisterForm(){
                     verificationCode:""
                 }
             })
+            
         }
     }
     

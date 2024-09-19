@@ -79,6 +79,35 @@ app.get('/get-shops',async(req,res)=>{
     }
 })
 
+app.get('/find-seller/:sellerId',async(req,res)=>{
+
+    const sellerID=req.params.sellerId;
+
+    try{
+        const seller= await Seller.findById(sellerID)
+
+        if(seller){
+            res.status(200).json({
+                status:"Success",
+                data:{
+                    seller
+                }
+            });
+        }else{
+            res.status(404).json({
+                status:"Failed",
+                message:"Seller not found"
+            })
+        }
+    }catch(err){
+        res.status(500).json({
+            status:"Failed",
+            message:"Seller not found"
+        })
+    }
+
+})
+
 app.post('/send-verification-email',(req,res)=>{
     const {email} =req.body;
 
