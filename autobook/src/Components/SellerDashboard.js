@@ -49,7 +49,11 @@ export default function SellerDashboard(){
     return (
         <div className='seller--dashboard--holder'>
             <NavBar/>
-            {popupForm === true && <CreateShop toggleForm={togglePopupForm}/>}
+            {popupForm === true && 
+            <CreateShop 
+             toggleForm={togglePopupForm}
+             seller={seller}
+             />}
             <div className='dashboard--holder'>
                 <div className='left--menu'>
                     <div className='seller-profile--holder'>

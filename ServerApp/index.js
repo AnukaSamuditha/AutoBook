@@ -108,6 +108,29 @@ app.get('/find-seller/:sellerId',async(req,res)=>{
 
 })
 
+app.put('/update-seller/:id',async (req,res)=>{
+
+    const updatedSeller=await Seller.findByIdAndUpdate(req.params.id,req.body,{
+        new:true,
+        runValidators:true
+    })
+    try{
+        res.status(200).json({
+            status:'Success',
+            data :{
+                updatedSeller
+            }
+        })
+    }catch(err){
+        res.status(500).json({
+            status:"Failed",
+            message:"Seller update failure occured!",
+            error:err.message
+        })
+    }
+
+})
+
 app.post('/send-verification-email',(req,res)=>{
     const {email} =req.body;
 

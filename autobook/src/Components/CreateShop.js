@@ -1,7 +1,15 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import Axios from 'axios'
+import CarBannerImage from '../Images/car--banne--image.jpg';
+import {motion, AnimatePresence} from 'framer-motion';
 
 export default function CreateShop(props){
+
+    const[seller,setSeller]=useState(props.seller);
+    const[shop,setShop]=useState(null);
+
+    console.log("Here is the seller id : ",seller._id);
+
     const [formData,setFormData]=useState({
         shopName:"",
         shopDescription:"",
@@ -15,6 +23,26 @@ export default function CreateShop(props){
 
     })
 
+    function updateSellerShops(shopID){
+      setSeller((prevData)=>{
+        return{
+          ...prevData,
+          shopIDs:[...prevData.shopIDs,shopID]
+        }
+      })
+      Axios.put(`http://localhost:3001/update-seller/${seller._id}`,{
+        shopIDs:[...seller.shopIDs,shopID]
+
+      })
+      .then((res)=>{
+        console.log("Seller Shop data updated successfully",res.data)
+        setSeller(res.data.updatedSeller)
+
+      }).catch((err)=>{
+        console.error('Seller shop data updation failure occured',err.error)
+      })
+    }
+    
     function handleChange(event){
        
         setFormData((prevFormData)=>{
@@ -42,6 +70,14 @@ export default function CreateShop(props){
 
       }).then((res)=>{
         console.log("The shop is created successfully",res.data);
+        const newShopId = res.data.data.shop?._id; 
+         if (newShopId) {
+             updateSellerShops(newShopId);
+         } else {
+            console.error("Shop ID is undefined");
+        }
+
+
       }).catch((err)=>{
         console.error("There was a failure in shop creation",err.message);
       })
@@ -63,9 +99,10 @@ export default function CreateShop(props){
     }
     return(
         <div className='form--container'>
+          <img src={require('../Images/xmark.svg').default} alt='closing--icon' className='form--closer'onClick={props.toggleForm}/>
             <div className='form--Info'>
                 <h3 className='form--title'>Build the Future of Automotive Commerce.</h3>
-                <p className='form-description'>The road to the future is paved with innovation and dedication. Build your shop today and become a key player in the automotive industry, offering products and solutions that drive the future forward.</p>
+                <p className='form-description'>Be a part of the Automotive E-Commerce Today.</p>
             </div>
             <form className='form' onSubmit={handleSubmit}>
                      <div className='sector--1'>
@@ -116,10 +153,7 @@ export default function CreateShop(props){
                       value={formData.shopEmail}
                       placeholder="Shop email address"
                      /><br/>
-                     </div>
-
-                     <div className='sector--2'>
-                        <h4 className='payment--methods'>Payment Methods</h4>
+                     <h4 className='payment--methods'>Payment Methods</h4>
                         <div className='payment--option--holder'>
                             <label htmlFor='isCreditCardAvailable' className='payment--label'>Credit Card</label>
                             <input 
@@ -145,34 +179,18 @@ export default function CreateShop(props){
                               onChange={handleChange}
                               checked={formData.isCODAvailable}
                             /><br/>
-                            
-                        </div>
-                        <h3 className='subscription--plan--title'>Select a subscription plan</h3>
-                        <div className='plans--container'>
-                            <div className='plan'>
-                              <h5 className='plan--Name'>Starter Gear</h5>
-                              <div className='plan--price--holder'>
-                                <h3 className='plan--price'>$10</h3>
-                                <small className='plan--duration--text'>/per month</small>
-                              </div>
-
-                            </div>
-                            <div className='plan'>
-                              <h5 className='plan--Name'>Starter Gear</h5>
-
-                            </div>
-                            <div className='plan'>
-                              <h5 className='plan--Name'>Starter Gear</h5>
-
-                            </div>
                         </div>
                         <div className='submit--button--holder'>
                           <button className='submit--button' >Create Shop</button>
                         </div>
                      </div>
 
+                     <div className='sector--2'>
+
+                      <img src={CarBannerImage} alt='create--shop-banner' className='car--image'/>
+ 
+                     </div>
             </form>
-            
         </div>
     )
 }

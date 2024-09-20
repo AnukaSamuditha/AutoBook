@@ -16,7 +16,12 @@ const SellerSchema = new mongoose.Schema({
     createdDate:{
         type:String,
         required:true
-    }
+    },
+    shopIDs:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Shop',
+        default:[]
+    }]
 })
 
 const Seller=mongoose.model('Seller',SellerSchema);
