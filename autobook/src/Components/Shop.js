@@ -2,7 +2,7 @@ import React,{useState} from "react";
 import BellIconWhite from '../Images/bell--white.svg'
 import BellNotifyWhite from '../Images/bell--notify--white.svg';
 
-export default function Shop() {
+export default function Shop(props) {
   const [notification,setNotification]= useState(false)
 
   function toggleBellIcon(){
@@ -11,7 +11,7 @@ export default function Shop() {
   }
   return (
     <div className="shop--container">
-      <div className="first--half">
+      <div className="first--half" style={props.shopStyle}>
          <div className="shop--upper">
           <h5 className="city">Colombo</h5>
           <div className="bell--holder">
@@ -19,15 +19,15 @@ export default function Shop() {
           </div>
          </div>
          <div className="shop--name--container">
-          <h5 className="shop--name">The Tire Shop</h5>
+          <h5 className="shop--name">{props.shopName}</h5>
          </div>
          <div className="product--category--container">
-          <h4 className="product--category">Tire</h4>
+          <h4 className="product--category">{props.primaryProduct}</h4>
          </div>
          <div className="payment--methods--container">
-          <div className="method">Credit</div>
-          <div className="method">Debit</div>
-          <div className="method">COD</div>
+          {props.isCreditCardAvailable && <div className="method">Credit</div>}
+          {props.isDebittCardAvailable && <div className="method">Debit</div>}
+          {props.isCODAvailable && <div className="method">COD</div>}
          </div>
          <div className="analytic--section">
           <div className="sales--box">

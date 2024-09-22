@@ -9,9 +9,6 @@ export default function MarketPlace() {
     const [searchShops,setSearchShops]=useState([])
     const [searchValue,setSearchValue]=useState("")
 
-    
-
-
     useEffect(()=>{
         Axios.get('http://localhost:3001/get-shops').then((res)=>{
            setShops(res.data.shops.shops)
@@ -96,8 +93,6 @@ export default function MarketPlace() {
         setSearchValue(event.target.value);
             
     }
-
-    
 
   return (
     <div>

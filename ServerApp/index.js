@@ -79,6 +79,22 @@ app.get('/get-shops',async(req,res)=>{
     }
 })
 
+app.post('/get-seller-shops',async(req,res)=>{
+    const {shopIDs} =req.body;
+
+    try{
+        const sellerShops=await Shop.find({_id : {$in : shopIDs}});
+
+        res.status(200).json(sellerShops);
+    }catch(error){
+        res.status(500).json({
+            status:'Failure',
+            message:'Error receiving seller shops',
+            error:error.message
+        });
+    }
+});
+
 app.get('/find-seller/:sellerId',async(req,res)=>{
 
     const sellerID=req.params.sellerId;

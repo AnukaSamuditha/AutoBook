@@ -8,8 +8,6 @@ export default function CreateShop(props){
     const[seller,setSeller]=useState(props.seller);
     const[shop,setShop]=useState(null);
 
-    console.log("Here is the seller id : ",seller._id);
-
     const [formData,setFormData]=useState({
         shopName:"",
         shopDescription:"",
