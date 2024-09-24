@@ -3,8 +3,7 @@ import "../Styles/AddProductForm.css";
 import Axios from 'axios';
 
 
-
-export default function AddProductForm() {
+export default function AddProductForm(props) {
 
     const [product,setProduct]=useState({
         productName:"",
@@ -17,6 +16,13 @@ export default function AddProductForm() {
         productImage:"",
         productAddedDate:""
     })
+    const[shopID,setShopID]=useState("");
+
+    useEffect(()=>{
+
+      setShopID(props.shopId);
+
+    },[props.shopId])
     
     function handleChange(event){
         const{name,value,type}=event.target;
@@ -28,6 +34,20 @@ export default function AddProductForm() {
                 }
         })
     }
+    function updateShop(productID){
+       Axios.put(`http://localhost:3001/update-shop/${shopID}`,{
+        productID:productID
+       })
+       .then((res)=>{
+
+         console.log("The new product added successfully",res.data);
+
+       }).catch((err)=>{
+
+        console.error("Failure occured in adding the new product!",err.message);
+
+       })
+    }
     function handlePhoto(event){
         setProduct((prevData)=>{
             return{
@@ -35,7 +55,7 @@ export default function AddProductForm() {
                 productImage:event.target.files[0]
             }
         })
-        console.log(product.productImage)
+        console.log(event.target.files[0]);
     }
     function handleSubmit(event){
         event.preventDefault();
@@ -53,16 +73,35 @@ export default function AddProductForm() {
 
         Axios.post("http://localhost:3001/add-product",formData)
          .then((res)=>{
-            
+            console.log("New Product stored successfully",res.data.data);
+            updateShop(res.data.data.newProduct._id)
+            window.alert("The product added successfully");
+
+         }).catch((err)=>{
+          console.error("Failure occured in product storing!",err.error);
          })
+
+         setProduct(({
+          productName:"",
+          productCategory:"",
+          productPrice:0,
+          productDescription:"",
+          productCountry:"",
+          productBrand:"",
+          productQuantity:0,
+          productImage:"",
+          productAddedDate:""
+         }));
+
     }
+
   return (
     <div className="add--product--form--holder">
       <div className="add--product--form--container">
         <div className="banner--heading--holder">
           <h5 className="banner--heading">Add Product</h5>
         </div>
-        <form className="add--product--form">
+        <form className="add--product--form" onSubmit={handleSubmit} encType="multipart/form-data">
           <label htmlFor="productName" className="add--product--label">Product Name:</label>
           <br />
           <input 
@@ -82,7 +121,7 @@ export default function AddProductForm() {
             id="productCategory"
             name="productCategory"
             className="product--category--selector"
-            onSubmit={handleChange}
+            onChange={handleChange}
             value={product.productCategory}
           >
             <option value="">--Select the product category--</option>
@@ -173,6 +212,7 @@ export default function AddProductForm() {
         </form>
       </div>
       <div className="add--product--banner--container">
+        <img src={require('../Images/xmark-circle-white.svg').default} alt="form--closer" className="closer--sign" onClick={props.toggleForm}/>
         <img src={require('../Images/porche--background.jpeg')} alt="addProductBanner" className="addProductBanner"/>
       </div>
     </div>

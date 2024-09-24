@@ -1,25 +1,47 @@
 import React,{useState,useEffect} from 'react';
-import '../Styles/ShopDashboard.css'
+import '../Styles/ShopDashboard.css';
+import Axios from 'axios';
+import ProductDashboard from './ProductDashboard';
+import AddProductForm from './AddProductForm';
 
 
 export default function ShopDashboard(props){
 
     const[shopId,setShopID]=useState("");
-
+    const [shop,setShop]=useState({})
+    const[productToggle,setProductToggle]=useState(false);
+    const [productFormToggle,setProductFormToggle]=useState(false);
 
     useEffect(()=>{
         setShopID(props.activeShop)
     },[props.activeShop])
 
+    useEffect(()=>{
+        Axios.get(`http://localhost:3001/get-shop/${shopId}`)
+         .then((res)=>{
+            setShop(res.data.data.shop)
+            console.log("Shop data is fetched successfully",res.data.data);
+         }).catch((err)=>{
+            console.error("There was an error fetching the shop information",err.message);
+         })
+    },[shopId]);
     
-    console.log("Clicked shop",shopId)
+    //console.log("Clicked shop",shopId)
+
+    function toggleProductDashboard(){
+        setProductToggle((prevValue)=>!prevValue);
+    }
+
+    function toggleProductForm(){
+        setProductFormToggle((prevValue)=>!prevValue)
+    }
 
     return (
         <div className='shop--dashboard--holder'>
             <div className='section--1'>
                 <img src={require('../Images/arrow-left-white.svg').default} alt='back--button' className='back--button' onClick={props.toggleClickedShop}/>
                 <div className='shop--info--container'>
-                    <h3 className='shop--name--'>{shopId}</h3>
+                    <h3 className='shop--name--'>{shop.shopName}</h3>
                     <h4 className='title--text'>Fulfill new orders & track analytics.</h4>
                 </div>
                 <div className='settings--container'>
@@ -29,14 +51,16 @@ export default function ShopDashboard(props){
                 </div>
             </div>
 
-            <div className='section--2'>
+            
+            {!productToggle ? <div className='section--2'>
+                {productFormToggle && <AddProductForm toggleForm={toggleProductForm} shopId={shopId}/>}
                 <div className='products--holder'>
                     <div className='products'>
 
                     </div>
                     <div className='manage--product--info'>
-                        <small className='manage--products--title'>Manage products</small>
-                        <img src={require('../Images/plus-circle.svg').default} className='setting--icon' alt='plus--icon'/>
+                        <small className='manage--products--title' onClick={toggleProductDashboard}>Manage products</small>
+                        <img src={require('../Images/plus-circle.svg').default} className='setting--icon' alt='plus--icon' onClick={setProductFormToggle}/>
                     </div>
                 </div>
                 <div className='analytics--section'>
@@ -67,7 +91,7 @@ export default function ShopDashboard(props){
                         <small className='sales--reports--title'>Sales reports</small>
                     </div>
                 </div>
-            </div>
+            </div> : <ProductDashboard/>}
 
             <div className='section--3'>
                 
