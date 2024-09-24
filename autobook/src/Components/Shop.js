@@ -1,35 +1,44 @@
-import React,{useState} from "react";
-import BellIconWhite from '../Images/bell--white.svg'
-import BellNotifyWhite from '../Images/bell--notify--white.svg';
+import React, { useState, useEffect } from "react";
+import BellIconWhite from "../Images/bell--white.svg";
+import BellNotifyWhite from "../Images/bell--notify--white.svg";
 
 export default function Shop(props) {
-  const [notification,setNotification]= useState(false)
+  const [notification, setNotification] = useState(false);
+  const [shopID, setShopID] = useState(null);
 
-  function toggleBellIcon(){
+  useEffect(()=>{
+    setShopID(props.ShopID);
+  },[props.shopID])
 
-    setNotification((preValue)=>!preValue)
+  function toggleBellIcon() {
+    setNotification((preValue) => !preValue);
   }
   return (
     <div className="shop--container">
       <div className="first--half" style={props.shopStyle}>
-         <div className="shop--upper">
+        <div className="shop--upper">
           <h5 className="city">Colombo</h5>
           <div className="bell--holder">
-          <img src={notification ? BellNotifyWhite : BellIconWhite} className="bell--icon" alt="bell--icon" onClick={toggleBellIcon}/>
+            <img
+              src={notification ? BellNotifyWhite : BellIconWhite}
+              className="bell--icon"
+              alt="bell--icon"
+              onClick={toggleBellIcon}
+            />
           </div>
-         </div>
-         <div className="shop--name--container">
+        </div>
+        <div className="shop--name--container">
           <h5 className="shop--name">{props.shopName}</h5>
-         </div>
-         <div className="product--category--container">
+        </div>
+        <div className="product--category--container">
           <h4 className="product--category">{props.primaryProduct}</h4>
-         </div>
-         <div className="payment--methods--container">
+        </div>
+        <div className="payment--methods--container">
           {props.isCreditCardAvailable && <div className="method">Credit</div>}
-          {props.isDebittCardAvailable && <div className="method">Debit</div>}
+          {props.isDebitCardAvailable && <div className="method">Debit</div>}
           {props.isCODAvailable && <div className="method">COD</div>}
-         </div>
-         <div className="analytic--section">
+        </div>
+        <div className="analytic--section">
           <div className="sales--box">
             <h3 className="sales">$350</h3>
             <small>Sales</small>
@@ -48,7 +57,12 @@ export default function Shop(props) {
       </div>
       <div className="second--half">
         <h1 className="second--title">Manage the shop</h1>
-        <button className="manage--button">Manage</button>
+        <button
+          className="manage--button"
+          onClick={()=>props.toggleClickedShop(props.shopID)}
+        >
+          Manage
+        </button>
       </div>
     </div>
   );

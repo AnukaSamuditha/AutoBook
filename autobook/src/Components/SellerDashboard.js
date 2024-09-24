@@ -3,13 +3,15 @@ import NavBar from './NavBar';
 import Shop from './Shop';
 import CreateShop from './CreateShop';
 import Axios from 'axios';
+import ShopDashboard from './ShopDashboard';
 
 export default function SellerDashboard(){
 
     const[shops,setShops]=useState([]);
     const[popupForm,setPopupForm]=useState(false);
-    const[seller,setSeller]=useState({})
-    const[sellerShops,setSellerShops]=useState([])
+    const[seller,setSeller]=useState({});
+    const[sellerShops,setSellerShops]=useState([]);
+    const[activeShop,setActiveShop]=useState(null);
 
     let lastColor=null;
 
@@ -63,6 +65,16 @@ export default function SellerDashboard(){
         setPopupForm((prevPopupForm)=>!prevPopupForm);
     }
 
+    function toggleClickedShop(shopId){
+
+        setActiveShop(shopId);
+
+    }
+    
+    function goBackToShops(){
+        setActiveShop(null)
+    }
+
     function getRandomColor(colors){
         let randomIndex=Math.floor(Math.random() * colors.length);
   
@@ -97,6 +109,7 @@ export default function SellerDashboard(){
         <Shop 
         key={shop._id}
          //shopStyle={colorGenerator()}
+         shopID={shop._id}
          shopName={shop.shopName}
          shopDescription={shop.shopDescription}
          primaryProduct={shop.primaryProduct}
@@ -106,6 +119,7 @@ export default function SellerDashboard(){
          isDebittCardAvailable={shop.isDebittCardAvailable}
          isCODAvailable={shop.isCODAvailable}
          createdDate={shop.createdDate}
+         toggleClickedShop={toggleClickedShop}
         />
     );
 
@@ -136,7 +150,11 @@ export default function SellerDashboard(){
                     </div>
                     <hr className='horizontal--rule'/>
                     <div className='section--02'>
-                       {shopArray}
+                    {activeShop ? (
+                            <ShopDashboard activeShop={activeShop} toggleClickedShop={goBackToShops} />
+                        ) : (
+                            shopArray
+                        )}
                         
                     </div>
                 </div>

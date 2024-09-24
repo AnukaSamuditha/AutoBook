@@ -130,7 +130,9 @@
     display:flex;
     justify-content: space-between;
     align-items: center;
+    
 }
+
 .create--shop--button{
     width:140px;
     height:48px;

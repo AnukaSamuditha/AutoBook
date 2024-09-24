@@ -36,7 +36,12 @@ const ShopSchema= new mongoose.Schema({
     createdDate:{
         type:String,
         required:true
-    }
+    },
+    products:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Product',
+        default:[]
+    }]
 
 })
 

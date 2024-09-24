@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "DM Sans", sans-serif;
+    font-style: normal;
+}
+
+.shop--dashboard--holder{
+    width:950px;
+    height:600px;
+    border-radius:16px;
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap:20px;
+    background-color: black;
+    padding:15px;
+}
+.shop--info--container{
+    width:40%;
+    height:100%;
+    padding:5px 30px;
+    margin-left:6%;
+}
+.section--1{
+    width:100%;
+    height:100px;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    position:relative;
+}
+.back--button{
+    width:30px;
+    height:30px;
+    position:absolute;
+    left:2%;
+    top:15px;
+    cursor: pointer;
+}
+.shop--name--{
+    font-size: 35px;
+    font-weight: bold;
+    color: white;
+
+}
+.title--text{
+    font-size:17px;
+    font-weight: 400;
+    color: rgb(214, 214, 214);
+}
+.settings--container{
+    width:60%;
+    height:100%;
+    display:flex;
+    justify-content: flex-end;
+    gap:5%;
+    padding:10px 20px;
+}
+.setting--icon{
+    width:28px;
+    height:28px;
+    cursor: pointer;
+}
+
+.section--2{
+    width:100%;
+    height:55%;
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+    
+}
+.products--holder{
+    width:35%;
+    height:100%;
+    border:1px solid white;
+    border-radius:16px;
+    margin-right: 2%;
+    margin-left:0.5%;
+    
+}
+.products{
+    width:100%;
+    height:80%;
+    
+}
+.manage--product--info{
+    width: 100%;
+    height:20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:5%;
+}
+.manage--products--title{
+    color: #002ead ;
+    font-size:17px;
+    font-weight: 500;
+
+}
+.analytics--section{
+    width:40%;
+    height:100%;
+    border:1px solid white;
+    border-radius:16px;
+    padding:20px;
+    gap:7%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+.sales--container{
+    width:100%;
+    height:55%;
+    background-color:#E9FF97;
+    border-radius:16px;
+
+}
+.visitors--container{
+    width:100%;
+    height:40%;
+    border-radius:16px;
+    background-color:#E9FF97;
+}
+.info--sales-shop{
+    width: 100%;
+    height: 20%;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:15px 15px;
+}
+.sales--amount{
+    width:100%;
+    height:40%;
+    display:flex;
+    margin-top:5%;
+    justify-content: center;
+    align-items: center;
+    font-size:35px;
+    margin-bottom:5%;
+}
+.account--number--{
+    width:100%;
+    height:fit-content;
+    padding:5px 15px;
+    margin-top:1%;
+}
+.analytic--titles{
+    width:100%;
+    padding:10px 15px;
+    display:flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap:2%;
+
+}
+.window--icon{
+    width:20px;
+    height:20px;
+    opacity: 0.8;
+    cursor: pointer;
+}
+.analytic--heading{
+    color:#002ead;
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: 500;
+}
+.visitor--count{
+    text-align:center;
+    font-size:30px;
+    font-weight: bold;
+    color: black;
+}
+.feature--section{
+    width:20%;
+    height:100%;
+    border:1px solid white;
+    border-radius:16px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left:2%;
+    padding:20px;
+
+}
+.report-section{
+    width:100%;
+    height:55%;
+    background-color: #E9FF97;
+    border-radius:16px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:2%;
+    cursor: pointer;
+
+}
+.sales--reports--title{
+    font-weight: bold;
+    
+}
+.rating--section{
+    width:100%;
+    height:40%;
+    background-color: #E9FF97;
+    border-radius:16px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top:20px;
+    cursor: pointer;
+}
+.section--3{
+    width:100%;
+}

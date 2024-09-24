@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "DM Sans", sans-serif;
+    font-style: normal;
+}
+.add--product--form--holder{
+    width:1050px;
+    height:770px;
+    margin-left:10%;
+    margin-top:10%;
+    margin-bottom:5%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius:16px;
+}
+.add--product--form--container{
+    width:50%;
+    height:100%;
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+.banner--heading--holder{
+    width:100%;
+    height:40px;
+    padding:20px;
+    
+}
+.banner--heading{
+    font-size:25px;
+    font-weight: bold;
+}
+.add--product--banner--container{
+    width:50%;
+    height:100%;
+    padding:20px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 16px;
+
+}
+.addProductBanner{
+    width:100%;
+    height:100%;
+    border-radius:16px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.add--product--form{
+    width:100%;
+    height:85%;
+    padding:20px;
+}
+.add-product-input{
+    width:100%;
+    height:40px;
+    border-radius:8px;
+    text-indent:8px;
+    border:1px solid black;
+    margin-bottom:10px;
+}
+.add-product-input:focus{
+    border:1px solid 
+}
+.product--category--selector{
+    width:100%;
+    height:40px;
+    border-radius: 8px;
+    text-align: center;
+}
+.add--product--label{
+    font-size:15px;
+    font-weight:600;
+    color:black;
+}
+#productDescription{
+    height:120px;
+    text-align:center;
+}
+
+#add--product--image{
+    display:none;
+}
+#add--product--label--image{
+    width:100%;
+    height:45px;
+    border-radius:8px;
+    background-color:black;
+    color: white;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-top:2%;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+}
+#add--product--form--submit{
+    width:100%;
+    height:45px;
+    border-radius:8px;
+    background-color: #FDDE55;
+    color:black;
+    border:none;
+    font-weight: bold;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    cursor: pointer;
+    font-size:16px;
+}

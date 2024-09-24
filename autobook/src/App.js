@@ -4,6 +4,8 @@ import Home from "./Components/Home";
 import SellerDashboard from "./Components/SellerDashboard";
 import MarketPlace from "./Components/MarketPlace";
 import SellerRegisterForm from "./Components/SellerRegisterForm";
+import AddProductForm from "./Components/AddProductForm";
+import ShopDashboard from "./Components/ShopDashboard";
 
 export default function App() {
   return (
@@ -13,6 +15,8 @@ export default function App() {
         <Route path="/sellerdashboard" element={<SellerDashboard/>}/>
         <Route path="/marketplace" element={<MarketPlace/>}/>
         <Route path="/sellerRegister" element={<SellerRegisterForm/>}/>
+        <Route path="/addProduct" element={<AddProductForm/>}/>
+        <Route path="/shopDashboard/:shopID" element={<ShopDashboard/>}/>
       </Routes>
     </BrowserRouter>
   );
