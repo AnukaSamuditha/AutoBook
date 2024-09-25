@@ -5,6 +5,7 @@ import CreateShop from './CreateShop';
 import Axios from 'axios';
 import ShopDashboard from './ShopDashboard';
 
+
 export default function SellerDashboard(){
 
     const[shops,setShops]=useState([]);
@@ -155,7 +156,7 @@ export default function SellerDashboard(){
                         ) : (
                             shopArray
                         )}
-                        
+        
                     </div>
                 </div>
             </div>
