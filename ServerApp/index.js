@@ -33,6 +33,8 @@ app.get("/api", (req, res) => {
   res.end();
 });
 
+app.use('/Images/',express.static(path.join(__dirname,'Images')));
+
 app.post("/create-shop", async (req, res) => {
   const shop = new Shop(req.body);
   try {
@@ -98,6 +100,23 @@ app.post("/get-seller-shops", async (req, res) => {
       status: "Failure",
       message: "Error receiving seller shops",
       error: error.message,
+    });
+  }
+});
+
+app.post("/get-shop-products", async(req,res)=>{
+  const {productIDs} = req.body;
+
+  try{
+    const shopProducts= await Product.find({_id :{$in:productIDs}});
+
+    res.status(200).json(shopProducts);
+  }catch(error){
+
+    res.status(500).json({
+      status:"Failure",
+      message:"Failure occured in fetching product details",
+      error:error.message
     });
   }
 });

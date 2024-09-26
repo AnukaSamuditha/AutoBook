@@ -11,23 +11,25 @@ export default function ShopDashboard(props){
     const [shop,setShop]=useState({})
     const[productToggle,setProductToggle]=useState(false);
     const [productFormToggle,setProductFormToggle]=useState(false);
+    const [products,setProducts]=useState([]);
 
     useEffect(()=>{
         setShopID(props.activeShop)
     },[props.activeShop])
 
     useEffect(()=>{
-        Axios.get(`http://localhost:3001/get-shop/${shopId}`)
+        if(shopId){
+            Axios.get(`http://localhost:3001/get-shop/${shopId}`)
          .then((res)=>{
             setShop(res.data.data.shop)
             console.log("Shop data is fetched successfully",res.data.data);
          }).catch((err)=>{
             console.error("There was an error fetching the shop information",err.message);
          })
+        }
     },[shopId]);
     
-    //console.log("Clicked shop",shopId)
-
+    
     function toggleProductDashboard(){
         setProductToggle((prevValue)=>!prevValue);
     }
@@ -91,7 +93,7 @@ export default function ShopDashboard(props){
                         <small className='sales--reports--title'>Sales reports</small>
                     </div>
                 </div>
-            </div> : <ProductDashboard/>}
+            </div> : <ProductDashboard shopID={shopId}/>}
 
             <div className='section--3'>
                 
