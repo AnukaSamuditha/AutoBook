@@ -16,9 +16,19 @@
     gap:2%;
     padding:1%;
     overflow-y: scroll;
+    position: relative;
     
 }
 .productArray--container::-webkit-scrollbar{
     width:0;
+
+}
+.back--left--arrow{
+    position:absolute;
+    left:0;
+    top:0;
+    width:24px;
+    height:24px;
+    cursor: pointer;
 
 }

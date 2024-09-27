@@ -11,10 +11,11 @@ export default function MarketPlace() {
 
     useEffect(()=>{
         Axios.get('http://localhost:3001/get-shops').then((res)=>{
+          console.log(res)
            setShops(res.data.shops.shops)
            setSearchShops(res.data.shops.shops)
            console.log(res.data.shops.shops)
-           console.log(shops)
+           console.log("Shop data",searchShops)
            
         })
         
@@ -54,7 +55,8 @@ export default function MarketPlace() {
 
     const shopsArray=shops.map((shop)=>{
        return <MarketShop 
-          key={shop.id}
+          key={shop._id}
+          shopID={shop._id}
           shopName={shop.shopName}
           primaryProduct={shop.primaryProduct}
           creditCard={shop.isCreditCardAvailable}
@@ -66,7 +68,8 @@ export default function MarketPlace() {
 
     const searchedShopsArray=searchShops.map((shop)=>{
         return <MarketShop
-          key={shop.id}
+          key={shop._id}
+          shopID={shop._id}
           shopName={shop.shopName}
           primaryProduct={shop.primaryProduct}
           creditCard={shop.isCreditCardAvailable}
@@ -99,7 +102,7 @@ export default function MarketPlace() {
       <NavBar />
       <div className="marketPlace--holder">
         <h4 className="main--title">
-          Explore the Finest Automotive Shops at Your Fingertips.
+          Explore the <span className="gradient--texts">Finest Automotive Shops</span> at Your Fingertips.
         </h4>
         <p className="main--para">
           Discover top-quality automotive products from trusted sellers, all

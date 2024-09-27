@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "DM Sans", sans-serif;
+    font-style: normal;
+}
+
+.shop--page--banner--holder{
+    width:100%;
+    height:20rem;
+    margin-top:2%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    
+
+}
+.shop--page--banner--container{
+    width:85%;
+    height:90%;
+    border-radius:48px;
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding:20px;
+    box-shadow: rgba(139, 188, 236, 0.2) 0px 8px 24px;
+    position:relative;
+    
+}
+.category--label{
+    width:92px;
+    height:35px;
+    border-radius:1000px;
+    border: 3px solid transparent;
+    outline:none;
+    background-image: linear-gradient(white, white), 
+    linear-gradient(109.6deg, rgba(112,246,255,0.33) 11.2%, rgba(221,108,241,0.26) 42%, rgba(229,106,253,0.71) 71.5%, rgba(123,183,253,1) 100.2%);
+    background-clip: padding-box, border-box; 
+    background-origin: border-box;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    font-weight: 600;
+
+}
+.category--label:hover {
+    transform: scale(1.05); 
+    background-image: linear-gradient(white, white), 
+                      linear-gradient(109.6deg, rgba(112,246,255,0.33) 11.2%, rgba(221,108,241,0.26) 42%, rgba(229,106,253,0.71) 71.5%, rgba(123,183,253,1) 100.2%); 
+}
+
+.shop--title--heading{
+    font-size:70px;
+    padding:0.5%;
+    font-weight: bold;
+    color: black; 
+    
+}
+.shop--description--para{
+    width:70%;
+    text-align: center;
+    opacity: 0.8;
+
+}
+.payment--methods--holder{
+    width:50%;
+    height:5%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    gap:4%;
+    margin-top:3%;
+}
+.shining-button {
+    width: 120px;
+    height: 40px;
+    border-radius: 16px;
+    border: 2px solid silver; /* Silver frame */
+    background-color: #fff; /* White background */
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: all 0.3s ease;
+    color: black; /* Button text color */
+    font-weight: bold;
+    cursor: pointer;
+    
+}
+
+.shining-button:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.1));
+    transform: skewX(-25deg);
+    z-index: 2;
+    transition: 0.5s;
+    opacity: 0;
+}
+
+/* Continuous shining effect */
+@keyframes shine {
+    0% {
+        left: -100%;
+        opacity: 0;
+    }
+    50% {
+        left: 50%;
+        opacity: 1;
+    }
+    100% {
+        left: 100%;
+        opacity: 0;
+    }
+}
+
+.shining-button.animate-shine:before {
+    opacity: 1;
+    animation: shine 3s infinite ease-in-out;
+    animation-delay: 2s; /* Adjust delay as per requirement */
+}
+.shop--contact--details{
+    width:40%;
+    height:30px;
+    
+    justify-content: center;
+    align-items: center;
+    gap:4%;
+    margin-top:3%;
+    display:none;
+
+}
+.shop--mail--text{
+    color:black;
+    font-weight: bold;
+}
+.product--container--shop--page{
+    margin-top:4%;
+    width:85%;
+    padding:2%;
+    height:100%;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    align-items: center;
+    gap:3%;
+    border-radius: 42px;
+    margin:0 auto;
+    margin-top:4%;
+    background-color: black;
+}
+
+.back--button--shop--page{
+    position:absolute;
+    top:5%;
+    left:3%;
+    cursor: pointer;
+}

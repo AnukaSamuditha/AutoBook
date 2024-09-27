@@ -21,6 +21,16 @@
     width:80%;
     text-align: center;
 }
+.gradient--texts{
+    font-size:54px;
+    font-weight:bold;
+    width:80%;
+    text-align: center;
+    background-clip: text;
+    background: linear-gradient(90deg, #55d7ff, #afff90); /* Define the gradient */
+    -webkit-background-clip: text; /* Clip background to text */
+    -webkit-text-fill-color: transparent; /* Make the text color transparent */
+}
 .main--para{
     font-size:20px;
     font-weight:400;

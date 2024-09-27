@@ -1,12 +1,17 @@
 import React from 'react';
 import NextIcon from '../Images/arrow-right-circle.svg';
-
+import { useNavigate } from 'react-router-dom';
 
 
 export default function MarketShop(props){
 
-    console.log(props.shopName)
+    const navigate=useNavigate();
 
+    function handleNavigate(shopID){
+
+      navigate(`/shopPage/${shopID}`);
+       
+    }
     
     return(
         <div className="shop--container">
@@ -47,7 +52,7 @@ export default function MarketShop(props){
       </div>
       <div className="second--half">
         <h1 className="second--title">Explore products</h1>
-       <img src={NextIcon} alt='next--icon' className='next--icon'/>
+       <img src={NextIcon} alt='next--icon' className='next--icon' onClick={()=>handleNavigate(props.shopID)}/>
       </div>
     </div>
     )

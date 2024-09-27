@@ -10,7 +10,7 @@ export default function NavBar(){
             <Link to='/marketplace' className='nav-item'>About</Link>
             <Link to='/sellerdashboard' className='nav-item'>Shop</Link>
             <Link to='/addProduct' className='nav-item'>Guides</Link>
-            <Link to='/community' className='nav-item'>Community</Link>
+            <Link to='/shopPage' className='nav-item'>Community</Link>
            </div>
            <div className='profile--holder'>
             <img src={require('../Images/profilephoto4.png')} className='profile--icon' alt='profile--pic'/>

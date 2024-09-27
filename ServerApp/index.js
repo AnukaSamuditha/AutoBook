@@ -71,6 +71,7 @@ app.post("/create-seller-account", async (req, res) => {
     });
   }
 });
+
 app.get("/get-shops", async (req, res) => {
   const shops = await Shop.find({});
   try {

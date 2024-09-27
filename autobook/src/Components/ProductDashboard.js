@@ -53,6 +53,7 @@ export default function ProductDashboard(props){
 
     return(
         <div className='productArray--container'>
+            <img src={require('../Images/nav-arrow-left.svg').default} alt='arrow-left' className='back--left--arrow'/>
             {productCardArray}
         </div>
     )
