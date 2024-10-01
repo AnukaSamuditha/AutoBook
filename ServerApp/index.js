@@ -8,6 +8,7 @@ const Seller = require("./Models/SellerModel");
 const multer = require("multer");
 const Product = require("./Models/ProductModel");
 const path = require("path");
+const Order=require('./Models/OrderModel');
 const { v4: uuidv4 } = require("uuid");
 
 app.use(express.json());
@@ -49,6 +50,26 @@ app.post("/create-shop", async (req, res) => {
     res.status(500).json({
       status: "Failed",
       message: err,
+    });
+  }
+});
+
+app.post('/create-order',async (req,res)=>{
+  const order=new Order(req.body);
+
+  try{
+    await order.save();
+    res.status(200).json({
+      status:"Success",
+      data:{
+        order
+      }
+    });
+    
+  }catch(err) {
+    res.status(500).json({
+      status:"Failure",
+      message:err
     });
   }
 });

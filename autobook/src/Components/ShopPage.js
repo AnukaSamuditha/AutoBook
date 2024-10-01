@@ -65,7 +65,8 @@ export default function ShopPage() {
   const productCardArray = products.map((product) => (
     <ProductCard
       key={product._id}
-      cardID={product.id}
+      cardID={product._id}
+      shopID={shopID}
       productName={product.productName}
       productCategory={product.productCategory}
       productPrice={product.productPrice}
@@ -75,11 +76,14 @@ export default function ShopPage() {
       productQuantity={product.productQuantity}
       productImage={product.productImage}
       productAddedDate={product.productAddedDate}
+      isCODAvailable={shop.isCODAvailable}
+      isCreditCardAvailable={shop.isCreditCardAvailable}
+      isDebitCardAvailable={shop.isDebitCardAvailable}
     />
   ));
 
   if (!shop) {
-    return <div>Loading...</div>;
+    return <l-grid size="60" speed="1.5" color="black"></l-grid>;
   }
 
   return (

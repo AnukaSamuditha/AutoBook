@@ -1,10 +1,12 @@
 import React,{useState} from 'react';
 import { motion } from 'framer-motion';
 import '../Styles/ProductCard.css'; 
+import PaymentForm from './PaymentForm';
 
 export default function ProductCard(props) {
     const[expand,setExpand]=useState(false)
     const[expandedCard,setExpandedCard]=useState("");
+    const[paymentFormToggle,setPaymentFormToggle]=useState(false);
 
     function handleExpand(){
         setExpand((prevValue)=>!prevValue);
@@ -13,6 +15,9 @@ export default function ProductCard(props) {
     function handleExpandedCard(cardID){
         //setExpandedCard(expandedCard==cardID ? cardID : "");
         setExpandedCard(prevCardID => prevCardID === cardID ? "" : cardID);
+    }
+    function togglePaymentForm(){
+        setPaymentFormToggle((prevValue)=>!prevValue);
     }
     
     return (
@@ -31,6 +36,16 @@ export default function ProductCard(props) {
                 damping: 25 
             }}
         >
+            {paymentFormToggle && <PaymentForm
+             productPrice={props.productPrice}
+             togglePaymentForm={togglePaymentForm}
+             isCODAvailable={props.isCODAvailable}
+             isCreditCardAvailable={props.isCreditCardAvailable}
+             isDebitCardAvailable={props.isDebitCardAvailable}
+             isExpanded={expandedCard}
+             cardID={props.cardID}
+             shopID={props.shopID}
+            />}
             <motion.div 
                 className={`section--image--holder ${expandedCard===props.cardID ? "expanded--card" : ""}`}
             >
@@ -73,12 +88,13 @@ export default function ProductCard(props) {
                 </div>
                 <hr className='breaker' />
                 <div className='price--section'>
+                    
                     <h5 className='price--tag'>Rs.{props.productPrice} </h5>
                     <motion.button 
                         className={`buy--button ${expandedCard===props.cardID ? "expanded--card" : ""}`}
                         whileHover={{ scale: 1.01, backgroundColor: '#333' }} 
                         transition={{ duration: 0.2 }} 
-                        onClick={()=>handleExpandedCard(props.cardID)}
+                        onClick={expandedCard===props.cardID ? togglePaymentForm :()=>handleExpandedCard(props.cardID)}
                     >
                         Buy
                     </motion.button>

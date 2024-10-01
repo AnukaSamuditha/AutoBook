@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+.payment--form--container{
+    width:300px;
+    height:auto;
+    border-radius: 16px;
+    background-color: white;
+    color: black;
+    z-index: 10;
+    position: absolute;
+    left:40%;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+}
+.payment--form{
+    color:black;
+    z-index:10;
+    padding:4%;
+}
+.payment--form--input{
+    width:100%;
+    height:40px;
+    border-radius: 8px;
+    border:1px solid black;
+    opacity: 0.8;
+    margin-top:1%;
+    margin-bottom:1%;
+    background-color: white;
+    text-indent: 3%;
+}
+.payment--form--input:focus{
+    border:2px solid #007bff;
+    outline: none;
+}
+.payment--form--title{
+    font-size:20px;
+    
+}
+.payment--form--label{
+    
+    font-size: 15px;
+    color:gray;
+    font-weight:500;
+}
+#payment--form--submit--button{
+    width:100%;
+    border-radius:8px;
+    background-color: #007bff;
+    color: white;
+    height:40px;
+    border:none;
+    font-weight: 600;
+}
+.product--price--div{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    width:100%;
+    height:40px;
+    margin-bottom:1%;
+}
+.item--price{
+    font-size:20px;
+}
+.final--price{
+    font-size:20px;
+    opacity: 0.7;
+}
+.payment--holder{
+    width:100%;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:4%;
+
+}.payment--form--close{
+    cursor: pointer;
+}
