@@ -126,6 +126,22 @@ app.post("/get-seller-shops", async (req, res) => {
   }
 });
 
+app.post("/get-shop-orders", async (req, res) => {
+  const { ordersIDs } = req.body;
+
+  try {
+    const shopOrders = await Order.find({_id: { $in: ordersIDs } });
+
+    res.status(200).json(shopOrders);
+  } catch (error) {
+    res.status(500).json({
+      status: "Failure",
+      message: "Error receiving shop Orders",
+      error: error.message
+    });
+  }
+});
+
 app.post("/get-shop-products", async(req,res)=>{
   const {productIDs} = req.body;
 
@@ -249,6 +265,35 @@ app.put("/update-shop/:shopID", async (req, res) => {
     res.status(500).json({
       message: "Failure occurred in updating the shop",
       error,
+    });
+  }
+});
+app.put("/update-shop-orders/:shopID",async(req,res)=>{
+  const {orders} =req.body;
+  const {shopID} = req.params;
+
+  try{
+    const updatedShop= await Shop.findByIdAndUpdate(shopID,
+      {$push : {orders: orders}},
+      {new : true}
+    );
+    if (updatedShop) {
+      res.status(200).json({
+        status: "Success",
+        data: {
+          updatedShop,
+        },
+      });
+    } else {
+      res.status(404).json({
+        status: "Failed",
+        message: "Shop not found!",
+      });
+    }
+  }catch(err){
+    res.status(500).json({
+      message:"Failure updating the shop with orders",
+      error:err
     });
   }
 });

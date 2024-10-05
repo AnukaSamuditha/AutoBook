@@ -1,14 +1,11 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "../Styles/PaymentForm.css";
 import Axios from "axios";
-
 
 export default function PaymentForm(props) {
   console.log(props.shopID);
   console.log(localStorage.getItem("currentSeller"));
   console.log(props.cardID);
-
-  const [showConfetti, setShowConfetti] = useState(false);
 
   const [paymentFormData, setPaymentFormData] = useState({
     cardName: "",
@@ -24,9 +21,25 @@ export default function PaymentForm(props) {
     orderDate: "",
     orderStatus: "",
     shopID: "",
+    productName:"",
+    productCategory:"",
+    userName:""
   });
 
+  const[seller,setSeller]=useState({});
+
+  useEffect(()=>{
+    Axios.get(`http://localhost:3001/find-seller/${localStorage.getItem("currentSeller")}`)
+    .then((res)=>{
+        setSeller(res.data.data.seller)
+        console.log("Seller found : ",res.data.data.seller);
+    }).catch((err)=>{
+        console.error("Seller not found : ",err.message);
+    })
+},[])
+
   function handleChange(event) {
+
     setPaymentFormData((prevData) => {
       return {
         ...prevData,
@@ -53,15 +66,31 @@ export default function PaymentForm(props) {
       orderDate: new Date(),
       orderStatus: "New",
       shopID: props.shopID,
+      productName:props.productName,
+      productCategory:props.productCategory,
+      userName:seller.sellerName
     })
       .then((res) => {
         console.log("Your produdct is successfully ordered");
         console.log(res.data);
-        
+        const newOrder=res.data.data.order._id;
         alert("Order is successful");
+
+        Axios.put(`http://localhost:3001/update-shop-orders/${props.shopID}`,{
+            orders:newOrder
+        })
+        .then((res)=>{
+            console.log("Shop is updated successfully",res.data.data.updatedShop);
+        }).catch((err)=>{
+            console.error("Error updating the shop",err.message);
+        })
+
+        props.togglePaymentForm()
+        
       })
       .catch((err) => {
         console.error("Error making the order", err.message);
+        alert("Error making the order");
       });
 
     setPaymentFormData({
@@ -71,14 +100,15 @@ export default function PaymentForm(props) {
       cvcNumber: "",
       billingAddress: "",
       postalCode: "",
-      discount: "",
       productPrice: 0,
       discount: "",
       orderDate: "",
       orderStatus: "",
+      productName:"",
+      productCategory:"",
+      userName:""
     });
 
-    props.togglePaymentForm()
   }
 
   return (

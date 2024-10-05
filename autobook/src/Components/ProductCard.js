@@ -45,6 +45,8 @@ export default function ProductCard(props) {
              isExpanded={expandedCard}
              cardID={props.cardID}
              shopID={props.shopID}
+             productName={props.productName}
+             productCategory={props.productCategory}
             />}
             <motion.div 
                 className={`section--image--holder ${expandedCard===props.cardID ? "expanded--card" : ""}`}

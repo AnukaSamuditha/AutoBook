@@ -43,6 +43,11 @@ const ShopSchema= new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:'Product',
         default:[]
+    }],
+    orders:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Order',
+        default:[]
     }]
 
 })

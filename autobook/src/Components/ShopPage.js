@@ -13,8 +13,6 @@ export default function ShopPage() {
 
   console.log(shopID);
 
-  // Default values shown
-
   const [shop, setShop] = useState(null);
   const [productIDs, setProductIDs] = useState([]);
   const [products, setProducts] = useState([]);

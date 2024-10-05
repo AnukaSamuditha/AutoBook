@@ -58,8 +58,19 @@ const OrderSchema=new mongoose.Schema({
     orderStatus:{
         type:String,
         required:true
+    },
+    userName:{
+        type:String,
+        required:true
+    },
+    productName:{
+        type:String,
+        required:true
+    },
+    productCategory:{
+        type:String,
+        required:true
     }
-
 
 })
 
