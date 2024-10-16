@@ -268,6 +268,7 @@ app.put("/update-shop/:shopID", async (req, res) => {
     });
   }
 });
+
 app.put("/update-shop-orders/:shopID",async(req,res)=>{
   const {orders} =req.body;
   const {shopID} = req.params;
@@ -297,6 +298,40 @@ app.put("/update-shop-orders/:shopID",async(req,res)=>{
     });
   }
 });
+app.put('/update-shop-data/:shopID',async (req,res)=>{
+  try{
+    const updatedShop=await Shop.findByIdAndUpdate(req.params.shopID,req.body,{new:true})
+
+    if(!updatedShop){
+      return res.status(404).json({
+        error:'Shop not found!'
+      })
+    }
+    res.status(200).json({
+      message:"Shop updated Successfully",
+      data:updatedShop
+    })
+  }catch(error){
+    res.status(500).json({
+      error:error.message
+    })
+  }
+});
+app.delete('/delete-shop/:shopID',async (req,res)=>{
+  await Shop.findByIdAndDelete(req.params.shopID);
+
+  try{
+    res.status(204).json({
+      status:"Success",
+      data:{}
+    })
+  }catch(err){
+    res.status(500).json({
+      status:'Failed',
+      error:err
+    })
+  }
+})
 
 app.post("/send-verification-email", (req, res) => {
   const { email } = req.body;

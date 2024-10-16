@@ -4,8 +4,9 @@ import '../Styles/sellerRegisterForm.css';
 import {motion,AnimatePresence} from 'framer-motion';
 import Axios from 'axios';
 
-export default function SellerRegisterForm(){
+export default function SellerRegisterForm(props){
 
+    const navigate=useNavigate();
     const [registerData,setRegisterData]=useState({
         username:"",
         password:"",
@@ -25,7 +26,7 @@ export default function SellerRegisterForm(){
 
     const [OTPCode,setOTPCode]=useState("");
     const [seller,setSeller]=useState(null);
-    const navigater=useNavigate();
+    
 
     function handleChange(event){
         const {name,value}=event.target;
@@ -227,9 +228,7 @@ export default function SellerRegisterForm(){
             })
             status=false;
         }
-
         return status;
-        
     }
  
     function handleSubmit(event){
@@ -251,7 +250,7 @@ export default function SellerRegisterForm(){
                 setSeller(sellerObject);
                 localStorage.setItem("currentSeller",sellerID);
                 console.log("Successfully created the seller account",res);
-                navigater('/shop');
+                navigate('/sellerdashboard');
 
             }).catch((err)=>{
                 console.error("Error creating the seller account: ",err.message);
@@ -354,7 +353,7 @@ export default function SellerRegisterForm(){
                     exit={{ opacity: 0, y: 20 }}
                     transition={{ duration: 2, ease: 'easeInOut' }}
                     className="animated-text">
-                        Welcome to the seller community
+                        
                     </motion.div>
                 </AnimatePresence>
             </div>

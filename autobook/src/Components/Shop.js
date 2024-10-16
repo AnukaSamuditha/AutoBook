@@ -40,16 +40,16 @@ export default function Shop(props) {
         </div>
         <div className="analytic--section">
           <div className="sales--box">
-            <h3 className="sales">$350</h3>
+            <h3 className="sales">$0</h3>
             <small>Sales</small>
           </div>
           <div className="sales--box">
-            <h3 className="visitors">170</h3>
+            <h3 className="visitors">0</h3>
             <small>Visitors</small>
           </div>
           <div className="sales--box">
             <div className="rating--image--holder">
-              <h5 className="rating--count--value">40+</h5>
+              <h5 className="rating--count--value">0</h5>
             </div>
             <small>Ratings</small>
           </div>

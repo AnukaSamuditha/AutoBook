@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "DM Sans", sans-serif;
+    font-style: normal;
+}
+.shop--collab--form-container{
+    width:40%;
+    height:450px;
+    border-radius: 16px;
+    background-color: white;
+    z-index: 10;
+    position:absolute;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding:3% 2%;
+    
+}
+
+.shop--collab--form{
+    width:100%;
+    height: 100%;
+}
+.shop--collab--form--input{
+    width:100%;
+    height:40px;
+    border-radius: 8px;
+    border:1px solid black;
+    margin-bottom: 2%;
+    text-indent: 3%;
+}
+.shop--collab--form--input:focus{
+    border-color:1px solid blue;
+}
+.collab--shop--form--title{
+    width:100%;
+    font-size: 17px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 3%;
+
+}
+.shop--collab--form--label{
+    font-size: 15px;
+    font-weight: 600;
+    opacity: 0.6;
+    margin-right:5%;
+}
+.payment--methods--holder--collabForm{
+    width:100%;
+    border:1px solid red;
+    height:80px;
+}
+.shop--collab--form--input--checkbox{
+   margin-left:5%;
+   
+
+}
+#collab--shop--submit{
+    width:100%;
+    margin-top:3%;
+    height:40px;
+    border-radius: 8px;
+    background-color:greenyellow;
+    border:none;
+    font-weight: bold;
+    cursor: pointer;
+}
+#collab--shop--cansel{
+    width:100%;
+    margin-top:4%;
+    height:40px;
+    border-radius: 8px;
+    background-color:black;
+    color: white;
+    border:none;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 5%;
+}

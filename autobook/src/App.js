@@ -7,6 +7,7 @@ import SellerRegisterForm from "./Components/SellerRegisterForm";
 import AddProductForm from "./Components/AddProductForm";
 import ShopDashboard from "./Components/ShopDashboard";
 import ShopPage from "./Components/ShopPage";
+import DeletePopup from "./Components/DeletePopup";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="/addProduct" element={<AddProductForm/>}/>
         <Route path="/shopDashboard/" element={<ShopDashboard/>}/>
         <Route path="/shopPage/:shopID" element={<ShopPage/>}/>
+        <Route path="/delete-shop" element={<DeletePopup/>}/>
       </Routes>
     </BrowserRouter>
   );

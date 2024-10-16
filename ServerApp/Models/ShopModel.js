@@ -27,7 +27,7 @@ const ShopSchema= new mongoose.Schema({
         type:Boolean,
         required:true
     },
-    isDebittCardAvailable:{
+    isDebitCardAvailable:{
         type:Boolean,
         required:true
     },

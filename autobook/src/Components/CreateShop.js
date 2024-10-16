@@ -1,13 +1,12 @@
 import React,{useState,useEffect} from 'react';
 import Axios from 'axios'
 import CarBannerImage from '../Images/car--banne--image.jpg';
-import {motion, AnimatePresence} from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 export default function CreateShop(props){
 
     const[seller,setSeller]=useState(props.seller);
-    const[shop,setShop]=useState(null);
-
+    const navigate=useNavigate();
     const [formData,setFormData]=useState({
         shopName:"",
         shopDescription:"",
@@ -15,7 +14,7 @@ export default function CreateShop(props){
         contactNumber:"",
         shopEmail:"",
         isCreditCardAvailable:false,
-        isDebittCardAvailable:false,
+        isDebitCardAvailable:false,
         isCODAvailable:false,
         createdDate:""
 
@@ -62,7 +61,7 @@ export default function CreateShop(props){
         contactNumber:formData.contactNumber,
         shopEmail:formData.shopEmail,
         isCreditCardAvailable:formData.isCreditCardAvailable,
-        isDebittCardAvailable:formData.isDebittCardAvailable,
+        isDebitCardAvailable:formData.isDebitCardAvailable,
         isCODAvailable:formData.isCODAvailable,
         createdDate:new Date()
 
@@ -71,6 +70,8 @@ export default function CreateShop(props){
         const newShopId = res.data.data.shop?._id; 
          if (newShopId) {
              updateSellerShops(newShopId);
+             navigate('/sellerdashboard');
+             window.location.reload()
          } else {
             console.error("Shop ID is undefined");
         }
@@ -88,7 +89,7 @@ export default function CreateShop(props){
         contactNumber:"",
         shopEmail:"",
         isCreditCardAvailable:false,
-        isDebittCardAvailable:false,
+        isDebitCardAvailable:false,
         isCODAvailable:false
         }
       })
@@ -161,13 +162,13 @@ export default function CreateShop(props){
                               onChange={handleChange}
                               checked={formData.isCreditCardAvailable}
                             /><br/>
-                            <label htmlFor='isDebittCardAvailable' className='payment--label'>Debit Card</label>
+                            <label htmlFor='isDebitCardAvailable' className='payment--label'>Debit Card</label>
                             <input 
                               type='checkbox'
-                              id='isDebittCardAvailable'
-                              name='isDebittCardAvailable'
+                              id='isDebitCardAvailable'
+                              name='isDebitCardAvailable'
                               onChange={handleChange}
-                              checked={formData.isDebittCardAvailable}
+                              checked={formData.isDebitCardAvailable}
                             /><br/>
                             <label htmlFor='isCODAvailable' className='payment--label'>Cash On Delivery</label>
                             <input 

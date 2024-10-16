@@ -7,13 +7,13 @@ export default function NavBar(){
            <h4 className='logo'>AutoBook</h4>
            <div className='nav-items-container'>
             <Link to='/' className='nav-item'>Home</Link>
-            <Link to='/marketplace' className='nav-item'>About</Link>
-            <Link to='/sellerdashboard' className='nav-item'>Shop</Link>
-            <Link to='/addProduct' className='nav-item'>Guides</Link>
-            <Link to='/shopPage' className='nav-item'>Community</Link>
+            <Link to='/' className='nav-item'>About</Link>
+            <Link to='/marketplace' className='nav-item'>Shop</Link>
+            <Link to='/' className='nav-item'>Guides</Link>
+            <Link to='/' className='nav-item'>Community</Link>
            </div>
            <div className='profile--holder'>
-            <img src={require('../Images/profilephoto4.png')} className='profile--icon' alt='profile--pic'/>
+            <Link to='/sellerdashboard'><img src={require('../Images/profilephoto4.png')} className='profile--icon' alt='profile--pic'/></Link>
            </div>
         </nav>
     )

@@ -3,11 +3,14 @@ import "../Styles/marketplace.css";
 import NavBar from "./NavBar";
 import MarketShop from "./MarketShop";
 import Axios from 'axios';
+import SellerRegisterForm from "./SellerRegisterForm";
 
 export default function MarketPlace() {
     const [shops,setShops]=useState([])
     const [searchShops,setSearchShops]=useState([])
-    const [searchValue,setSearchValue]=useState("")
+    const [searchValue,setSearchValue]=useState("");
+    const[toggleRegisterForm,setToggleRegisterForm]=useState(false);
+    
 
     useEffect(()=>{
         Axios.get('http://localhost:3001/get-shops').then((res)=>{
@@ -96,6 +99,9 @@ export default function MarketPlace() {
         setSearchValue(event.target.value);
             
     }
+    function ToggleRegisterForm(){
+      setToggleRegisterForm((prevValue)=>!prevValue)
+    }
 
   return (
     <div>
@@ -108,6 +114,11 @@ export default function MarketPlace() {
           Discover top-quality automotive products from trusted sellers, all
           just a click away.
         </p>
+        <div className="register--button--holder">
+          <h4 className="join--us--heading">Join with Us Today!</h4>
+          <button className="join--us--button" onClick={ToggleRegisterForm}>Start Today</button>
+          {toggleRegisterForm && <SellerRegisterForm toggleForm={ToggleRegisterForm}/>}
+        </div>
         <form className="search--form" >
             <div className="search--bar--holder">
                 <img src={require('../Images/search.svg').default} className="search--icon"/>

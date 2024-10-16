@@ -13,12 +13,16 @@
     display:flex;
     justify-content: center;
     gap:5%;
+    background-color: white;
+    position: absolute;
+    z-index: 30;
     align-items: center;
     margin-left:15%;
     margin-top:5%;
     margin-bottom:5%;
     border-radius:0 0 32px 0;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    top:8%;
 }
 .form--content--holder{
     width:45%;
@@ -81,6 +85,7 @@
 }
 #register--submit--button:active{
     transform: scale(0.9);
+    margin-bottom: 2%;
 
 }
 .sign--in--text{

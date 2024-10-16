@@ -4,6 +4,7 @@ import Shop from './Shop';
 import CreateShop from './CreateShop';
 import Axios from 'axios';
 import ShopDashboard from './ShopDashboard';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function SellerDashboard(){
@@ -13,6 +14,8 @@ export default function SellerDashboard(){
     const[seller,setSeller]=useState({});
     const[sellerShops,setSellerShops]=useState([]);
     const[activeShop,setActiveShop]=useState(null);
+
+    const navigate=useNavigate();
 
     let lastColor=null;
 
@@ -117,13 +120,19 @@ export default function SellerDashboard(){
          contactNumber={shop.contactNumber}
          shopEmail={shop.shopEmail}
          isCreditCardAvailable={shop.isCreditCardAvailable}
-         isDebittCardAvailable={shop.isDebittCardAvailable}
+         isDebitCardAvailable={shop.isDebitCardAvailable}
          isCODAvailable={shop.isCODAvailable}
          createdDate={shop.createdDate}
          toggleClickedShop={toggleClickedShop}
         />
     );
 
+    function handleLogOut(){
+        localStorage.removeItem("currentSeller");
+        console.log("Logout Successful");
+        navigate("/marketplace");
+
+    }
 
     return (
         <div className='seller--dashboard--holder'>
@@ -143,6 +152,7 @@ export default function SellerDashboard(){
                         <img src={require("../Images/shop--icon.svg").default} className='shop--icon' alt='shop--icon'/>
                         <h5 className='shopTitle'>Shops</h5>
                     </div>
+                    <h5 id='logOut--title' onClick={handleLogOut}>Log Out</h5>
                 </div>
                 <div className='right--menu'>
                     <div className='section--01'>
