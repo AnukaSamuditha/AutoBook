@@ -136,7 +136,7 @@ export default function ShopDashboard(props){
                     <h4 className='title--text'>Fulfill new orders & track analytics.</h4>
                 </div>
                 <div className='settings--container'>
-                {toggleCollabForm && <CollaborationForm shopID={shopId}/>}
+                {toggleCollabForm && <CollaborationForm shopID={shopId} toggleForm={handleCollabFormToggle} sellerID={props.sellerID}/>}
                     <button className='collab--button' onClick={handleCollabFormToggle}>Collaborate</button>
                     <img src={require('../Images/settingIcon2.svg').default} className='setting--icon' alt='setting--icon' onClick={toggleUpdateShopForm}/>
                    {updateShopToggle && <UpdateShop shopID={shopId} toggleForm={toggleUpdateShopForm}/>}

@@ -9,6 +9,7 @@ const multer = require("multer");
 const Product = require("./Models/ProductModel");
 const path = require("path");
 const Order=require('./Models/OrderModel');
+const Collaboration=require('./Models/Collaboration');
 const { v4: uuidv4 } = require("uuid");
 
 app.use(express.json());
@@ -92,6 +93,43 @@ app.post("/create-seller-account", async (req, res) => {
     });
   }
 });
+
+app.post("/create-collab",async (req,res)=>{
+  
+  try{
+    const { collabName, sellerCount, product, shopID, createdDate, createdSeller, discountedPrice } = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(product)) {
+      return res.status(400).json({ error: "Invalid product ID format" });
+    }
+    
+    if (!mongoose.Types.ObjectId.isValid(shopID)) {
+      return res.status(400).json({ error: "Invalid shop ID format" });
+    }
+
+    const productObjectID=new mongoose.Types.ObjectId(product)
+    const shopObjectID=new mongoose.Types.ObjectId(shopID)
+
+    const newCollab = new Collaboration({
+      collabName,
+      sellerCount,
+      products: [productObjectID], 
+      shopIDs:[shopObjectID],
+      createdDate,
+      createdSeller,
+      discountedPrice
+  });
+
+  await newCollab.save();
+  res.status(201).json({ message: 'Collaboration created successfully', data: newCollab });
+
+  }catch(err){
+    console.error("Error creating collaboration: ", err);
+    res.status(500).json({ error: "Failed to create collaboration" });
+  }
+
+  
+})
 
 app.get("/get-shops", async (req, res) => {
   const shops = await Shop.find({});

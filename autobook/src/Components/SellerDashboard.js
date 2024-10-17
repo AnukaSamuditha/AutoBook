@@ -162,7 +162,7 @@ export default function SellerDashboard(){
                     <hr className='horizontal--rule'/>
                     <div className='section--02'>
                     {activeShop ? (
-                            <ShopDashboard activeShop={activeShop} toggleClickedShop={goBackToShops} />
+                            <ShopDashboard activeShop={activeShop} toggleClickedShop={goBackToShops} sellerID={sellerID}/>
                         ) : (
                             shopArray
                         )}
