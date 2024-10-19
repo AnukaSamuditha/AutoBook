@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "DM Sans", sans-serif;
+    font-style: normal;
+}
+.email--box--container{
+    width:50%;
+    height:250px;
+    border-radius: 16px;
+    background-color: white;
+    position: absolute;
+    z-index: 20;
+    top:60px;
+    right:5px;
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+.email--box--container::-webkit-scrollbar{
+    display:none;
+}
+.collab-req{
+    background-color: #CCCCFF;
+    color:black;
+    border-radius:8px;
+    width:95%;
+    height:40px;
+    margin-bottom: 2%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding:1%;
+    gap:10px;
+    font-weight: 600;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    font-size: 15px;
+}
+.accept-button{
+    border:none;
+    border-radius:1000px;
+    width:80px;
+    height:90%;
+    background-color: black;
+    color:white;
+    cursor: pointer;
+}
+.reject-button{
+    border:none;
+    border-radius:1000px;
+    width:80px;
+    height:90%;
+    color:white;
+    background-color: red;
+    cursor: pointer;
+}
+.req--date{
+    color:gray;
+    font-style: italic;
+    font-weight: 500;
+    margin-left: 3%;
+    
+}

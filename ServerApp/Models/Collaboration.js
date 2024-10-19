@@ -30,6 +30,14 @@ const CollabSchema=new mongoose.Schema({
     discountedPrice:{
         type:Number,
         required:true
+    },
+    createdShop:{
+        type:String,
+        required:true
+    },
+    createdShopName:{
+        type:String,
+        requried:true
     }
 })
 

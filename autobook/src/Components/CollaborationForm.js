@@ -11,6 +11,7 @@ export default function CollaborationForm(props) {
     createdDate: "",
     createdSeller: "",
     discountedPrice: "",
+    createdShopName:""
   });
   const [products, setProducts] = useState([]);
   const [shopProducts, setShopProducts] = useState([]);
@@ -110,6 +111,8 @@ export default function CollaborationForm(props) {
       createdDate: new Date().toISOString(),
       createdSeller: props.sellerID,
       discountedPrice: calculateDiscount(),
+      createdShop:props.shopID,
+      createdShopName:props.shopName
     })
       .then((res) => {
         alert("The collaboration created successfully");

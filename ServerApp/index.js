@@ -97,7 +97,7 @@ app.post("/create-seller-account", async (req, res) => {
 app.post("/create-collab",async (req,res)=>{
   
   try{
-    const { collabName, sellerCount, product, shopID, createdDate, createdSeller, discountedPrice } = req.body;
+    const { collabName, sellerCount, product, shopID, createdDate, createdSeller, discountedPrice, createdShop, createdShopName } = req.body;
 
     if (!mongoose.Types.ObjectId.isValid(product)) {
       return res.status(400).json({ error: "Invalid product ID format" });
@@ -117,7 +117,9 @@ app.post("/create-collab",async (req,res)=>{
       shopIDs:[shopObjectID],
       createdDate,
       createdSeller,
-      discountedPrice
+      discountedPrice,
+      createdShop,
+      createdShopName
   });
 
   await newCollab.save();
@@ -129,6 +131,25 @@ app.post("/create-collab",async (req,res)=>{
   }
 
   
+})
+
+app.put('/reject-collab/:collabId/shops/:shopId',async (req,res)=>{
+  const { collabId, shopId } = req.params;
+
+  try{
+    const shop=await Shop.findById(shopId)
+
+    if(shop){
+      shop.collabRequests.pull(collabId)
+      await shop.save();
+      res.status(200).json('Collab Requested removed successfully');
+    }
+  }catch(err){
+    console.error('Error removing the collaboration ID');
+    res.status(500).json({
+      message:err
+    })
+  }
 })
 
 app.get("/get-shops", async (req, res) => {
@@ -359,6 +380,46 @@ app.put('/push-collab-req/:shopID',async (req,res)=>{
   }
 
 })
+
+app.put('/accept-collab/:collabId/shops/:shopId', async (req, res) => {
+  const { collabId, shopId } = req.params;
+  const { discountedPrice, productID } = req.body;
+
+  try {
+    
+    const updatedCollab = await Collaboration.findByIdAndUpdate(
+      collabId,
+      {
+        $push: { 
+          shopIDs: shopId,          
+          products: productID  
+        },
+        $inc: { discountedPrice: discountedPrice }  
+      },
+      { new: true } 
+    );
+
+    
+    if (updatedCollab) {
+      
+      const shop = await Shop.findById(shopId); 
+      if (shop) {
+        shop.collabRequests.pull(collabId);  
+        await shop.save();
+        res.status(200).json('Collaboration accepted, product and shop updated successfully');
+      } else {
+        res.status(404).json({ message: "Shop not found" });
+      }
+    } else {
+      res.status(404).json({ message: "Collaboration not found" });
+    }
+  } catch (err) {
+    console.error('Error updating the collaboration', err);
+    res.status(500).json({ message: err.message });
+  }
+});
+
+
 
 app.put("/update-shop/:shopID", async (req, res) => {
   const { productID } = req.body;

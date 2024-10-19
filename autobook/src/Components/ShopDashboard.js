@@ -7,6 +7,7 @@ import UpdateShop from './UpdateShop';
 import html2pdf from 'html2pdf.js';
 import DeletePopup from './DeletePopup';
 import CollaborationForm from './CollaborationForm';
+import EmailBox from './EmailBox';
 
 export default function ShopDashboard(props){
 
@@ -19,6 +20,7 @@ export default function ShopDashboard(props){
     const[updateShopToggle,setUpdateShopToggle]=useState(false)
     const[deletePopupToggle,setDeletePopupToggle]=useState(false)
     const[toggleCollabForm,setToggleCollabForm]=useState(false);
+    const [emailBox,toggleEmailBox]=useState(false);
 
     useEffect(()=>{
         setShopID(props.activeShop)
@@ -63,6 +65,9 @@ export default function ShopDashboard(props){
     }
     function handleCollabFormToggle (){
         setToggleCollabForm((prevValue)=>!prevValue);
+    }
+    function handleEmailBox(){
+        toggleEmailBox((prevValue)=>!prevValue);
     }
 
     useEffect(()=>{
@@ -136,12 +141,13 @@ export default function ShopDashboard(props){
                     <h4 className='title--text'>Fulfill new orders & track analytics.</h4>
                 </div>
                 <div className='settings--container'>
-                {toggleCollabForm && <CollaborationForm shopID={shopId} toggleForm={handleCollabFormToggle} sellerID={props.sellerID}/>}
+                {toggleCollabForm && <CollaborationForm shopID={shopId} toggleForm={handleCollabFormToggle} sellerID={props.sellerID} shopName={shop.shopName}/>}
                     <button className='collab--button' onClick={handleCollabFormToggle}>Collaborate</button>
                     <img src={require('../Images/settingIcon2.svg').default} className='setting--icon' alt='setting--icon' onClick={toggleUpdateShopForm}/>
                    {updateShopToggle && <UpdateShop shopID={shopId} toggleForm={toggleUpdateShopForm}/>}
                     <img src={require('../Images/bellWhite.svg').default} className='setting--icon' alt='setting--icon'/>
-                    <img src={require('../Images/mailWhite.svg').default} className='setting--icon' alt='mail--icon'/>
+                    <img src={require('../Images/mailWhite.svg').default} className='setting--icon' alt='mail--icon' onClick={handleEmailBox}/>
+                    {emailBox && <EmailBox shopID={shopId}/>}
                     <img src={require('../Images/trash--icon--white.svg').default} className='setting--icon' alt='trash--icon' onClick={toggleDeletePopup}/>
                    {deletePopupToggle && <DeletePopup shopID={shopId} deleteToggle={toggleDeletePopup}/>}
                 </div>
