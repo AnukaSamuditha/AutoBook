@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import ReactDOM from "react-dom/client";
 import { useNavigate, useParams } from "react-router-dom";
 import NavBar from "./NavBar";
 import Axios from "axios";
+import Swal from 'sweetalert2';
 import ProductCard from "./ProductCard";
 import "../Styles/ShopPage.css";
 import "ldrs/grid";
+import StartImage from "../Images/sparks-solid.svg";
 
 export default function ShopPage() {
   const { shopID } = useParams();
@@ -16,6 +17,11 @@ export default function ShopPage() {
   const [shop, setShop] = useState(null);
   const [productIDs, setProductIDs] = useState([]);
   const [products, setProducts] = useState([]);
+  const [user, setUser] = useState(localStorage.getItem("currentSeller"));
+  const [seller, setSeller] = useState({});
+  const [collabs, setCollabs] = useState([]);
+  const [sendButton,toggleSendButton]=useState(false);
+  const [selectedCollab,setSelectedCollab]=useState("");
 
   useEffect(() => {
     if (shopID) {
@@ -58,7 +64,71 @@ export default function ShopPage() {
     fetchData();
   }, [productIDs]);
 
-  console.log("products here", products);
+  useEffect(() => {
+    if (user) {
+      Axios.get(`http://localhost:3001/find-seller/${user}`)
+        .then((res) => {
+          console.log("Seller data fetched successfully", res.data);
+          setSeller(res.data.data.seller);
+          setCollabs(res.data.data.seller.collaborations);
+        })
+        .catch((err) => {
+          console.error("Error fetching seller data!", err.message);
+        });
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (seller && collabs.length > 0) {
+      Axios.post(`http://localhost:3001/get-collab`, {
+        collabIDs: seller.collaborations,
+      })
+        .then((res) => {
+          console.log("Collaboration data fetched successfully", res.data);
+          setCollabs(res.data)
+        })
+        .catch((err) => {
+          console.log("Error fetching collaboration data", err.message);
+        });
+    }
+  }, [seller]);
+
+  function AlertCollabSuccess(){
+    Swal.fire({
+      title:"Success!",
+      text:"Collaboration Invite sent successfully",
+      icon:'success',
+      showCloseButton:true
+    })
+  }
+
+  //console.log("products here", products);
+
+  function handleSendButtton(){
+    toggleSendButton((prevValue)=>!prevValue);
+  }
+  
+  function sendCollabRequest(){
+    Axios.put(`http://localhost:3001/push-collab-req/${shopID}`,{collaborationID:selectedCollab})
+     .then((res)=>{
+      console.log("Collab request was pushed successfully",res.data);
+      //alert('Collaboration Invitation was sent');
+      AlertCollabSuccess()
+      handleSendButtton()
+     })
+     .catch((err)=>{
+      console.log("Error pushing collab request",err)
+     })
+  }
+
+  function handleOption(optionID){
+    if(optionID!=""){
+      handleSendButtton()
+      setSelectedCollab(optionID);
+    }
+
+  }
+
 
   const productCardArray = products.map((product) => (
     <ProductCard
@@ -89,6 +159,24 @@ export default function ShopPage() {
       <NavBar />
       <div className="shop--page--banner--holder">
         <div className="shop--page--banner--container">
+          <div className="c-button">
+            <img
+              src={require("../Images/sparks.svg").default}
+              className="star--image"
+              alt="collab-button--icon"
+            />
+            <select className="collab-options" onChange={(e)=>handleOption(e.target.value)}>
+              <option >Collaboration</option>
+              {collabs.length > 0 ? (
+                collabs.map((collab) => (
+                  <option key={collab._id} value={collab._id}>{collab.collabName}</option>
+                ))
+              ) : (
+                <option>No collaborations available</option>
+              )}
+            </select>
+            {sendButton && <img src={require('../Images/send.svg').default} alt="send--button" onClick={sendCollabRequest}/>}
+          </div>
           <img
             src={require("../Images/back--button--left.svg").default}
             alt="back--button"

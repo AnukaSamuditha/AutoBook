@@ -48,6 +48,11 @@ const ShopSchema= new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:'Order',
         default:[]
+    }],
+    collabRequests:[{
+        type:mongoose.Schema.ObjectId,
+        ref:'Collaboration',
+        default:[]
     }]
 
 })

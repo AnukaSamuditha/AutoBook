@@ -15,6 +15,7 @@ export default function CollaborationForm(props) {
   const [products, setProducts] = useState([]);
   const [shopProducts, setShopProducts] = useState([]);
   const [currentPrice, setCurrentPrice] = useState(0);
+  const [sellerID,setSellerID]=useState(localStorage.getItem('currentSeller'));
 
   useEffect(() => {
     if (props.shopID) {
@@ -88,6 +89,16 @@ export default function CollaborationForm(props) {
     </option>
   ));
 
+  function pushCollab(collabID){
+    Axios.put(`http://localhost:3001/push-collab/${sellerID}`,{collaborationID:collabID})
+     .then((res)=>{
+      console.log("Collab pushed successfully",res.data)
+     })
+     .catch((err)=>{
+      console.error("Error pushing the collaboration Id!",err);
+     })
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -102,7 +113,8 @@ export default function CollaborationForm(props) {
     })
       .then((res) => {
         alert("The collaboration created successfully");
-        console.log(res.data);
+        console.log("Collab was created",res.data.data._id);
+        pushCollab(res.data.data._id);
         setCollab({
           collabName: "",
           sellerCount: 0,

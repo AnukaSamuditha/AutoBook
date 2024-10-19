@@ -21,6 +21,12 @@ const SellerSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:'Shop',
         default:[]
+    }],
+    collaborations:[{
+        type:mongoose.Schema.ObjectId,
+        ref:'Collaboration',
+        default:[]
+
     }]
 })
 

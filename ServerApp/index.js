@@ -164,6 +164,21 @@ app.post("/get-seller-shops", async (req, res) => {
   }
 });
 
+app.post('/get-collab',async (req,res)=>{
+  const {collabIDs}=req.body;
+
+  try{
+    const collaborations=await Collaboration.find({_id :{$in : collabIDs}});
+    res.status(200).json(collaborations);
+  }catch(err){
+    res.status(500).json({
+      status:"Failure",
+      message:"Error fetching collaboration data!",
+      error:err.message
+    })
+  }
+})
+
 app.post("/get-shop-orders", async (req, res) => {
   const { ordersIDs } = req.body;
 
@@ -223,6 +238,7 @@ app.get("/find-seller/:sellerId", async (req, res) => {
     });
   }
 });
+
 app.get("/get-shop/:shopId", async (req, res) => {
   const shopID = req.params.shopId;
 
@@ -274,6 +290,75 @@ app.put("/update-seller/:id", async (req, res) => {
     });
   }
 });
+
+app.put('/push-collab/:sellerID',async (req,res)=>{
+
+  const {sellerID}=req.params;
+  const {collaborationID}=req.body;
+
+  const collabID=new mongoose.Types.ObjectId(collaborationID)
+
+  try{
+    const updatedSeller=await Seller.findByIdAndUpdate(
+      sellerID,
+      {$push:{collaborations:collabID}},
+      {new:true}
+    )
+    if (updatedSeller){
+      res.status(200).json({
+        status:"Success",
+        data:{
+          updatedSeller
+        }
+      })
+    }else{
+      res.status(404).json({
+        status:"Failure",
+        message:"Seller not found"
+      })
+    }
+  }catch(err){
+    res.status(500).json({
+      status:"Failure",
+      message:"Error updateing the seller",err
+    })
+  }
+
+})
+app.put('/push-collab-req/:shopID',async (req,res)=>{
+
+  const {shopID}=req.params;
+  const {collaborationID}=req.body;
+
+  const collabID=new mongoose.Types.ObjectId(collaborationID)
+
+  try{
+    const updatedShop=await Shop.findByIdAndUpdate(
+      shopID,
+      {$push:{collabRequests:collabID}},
+      {new:true}
+    )
+    if (updatedShop){
+      res.status(200).json({
+        status:"Success",
+        data:{
+          updatedShop
+        }
+      })
+    }else{
+      res.status(404).json({
+        status:"Failure",
+        message:"Shop not found"
+      })
+    }
+  }catch(err){
+    res.status(500).json({
+      status:"Failure",
+      message:"Error updating the shop",err
+    })
+  }
+
+})
 
 app.put("/update-shop/:shopID", async (req, res) => {
   const { productID } = req.body;
