@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react';
 import Axios from 'axios'
 import CarBannerImage from '../Images/car--banne--image.jpg';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 export default function CreateShop(props){
 
@@ -19,6 +20,25 @@ export default function CreateShop(props){
         createdDate:""
 
     })
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+      }
+    });
+
+    function TriggerToast(){
+      Toast.fire({
+          icon: "success",
+          title: "Seller account created successfully"
+        });
+    }
+    
 
     function updateSellerShops(shopID){
       setSeller((prevData)=>{
@@ -67,8 +87,10 @@ export default function CreateShop(props){
 
       }).then((res)=>{
         console.log("The shop is created successfully",res.data);
+        ;
         const newShopId = res.data.data.shop?._id; 
          if (newShopId) {
+          TriggerToast();
              updateSellerShops(newShopId);
              navigate('/sellerdashboard');
              window.location.reload()

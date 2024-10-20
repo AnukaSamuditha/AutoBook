@@ -1,9 +1,11 @@
 import React,{useState} from 'react';
 import { motion } from 'framer-motion';
-import '../Styles/ProductCard.css'; 
+import '../Styles/CollabProduct.css'; 
 import PaymentForm from './PaymentForm';
 
 export default function CollabProduct(props) {
+
+    console.log("Collab Card data",props);
     const[expand,setExpand]=useState(false)
     const[expandedCard,setExpandedCard]=useState("");
     const[paymentFormToggle,setPaymentFormToggle]=useState(false);
@@ -22,7 +24,7 @@ export default function CollabProduct(props) {
     
     return (
         <motion.div 
-            className={`card--container ${expandedCard===props.cardID ? "expanded--card" : ""}`}
+            className={`card--container-collab ${expandedCard===props.cardID ? "expanded--card" : ""}`}
             initial={{ opacity: 1, scale: 1, zIndex: 1 }} 
             whileHover={{ 
                 scale: 1.04,
@@ -88,7 +90,6 @@ export default function CollabProduct(props) {
                     <div className={`country--tag ${expandedCard===props.cardID ? "expanded--card" : ""}`}>
                         <small>{props.productCountry}</small></div>
                 </div>
-                <hr className='breaker' />
             </motion.div>
         </motion.div>
     );

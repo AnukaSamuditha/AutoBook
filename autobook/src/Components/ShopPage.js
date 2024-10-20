@@ -70,24 +70,7 @@ export default function ShopPage() {
     fetchData();
   }, [productIDs]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (shopCollabObjects.length > 0) {
-        await Axios.post("http://localhost:3001/get-shop-products", {
-          productIDs: shopCollabObjects[0].products,
-        })
-          .then((res) => {
-            console.log("product data", res);
-            //console.log("CollabObjects Here",shopCollabObjects)
-            setCollabProducts(res.data);
-          })
-          .catch((err) => {
-            console.error("Error fetching product documents ", err.message);
-          });
-      }
-    };
-    fetchData();
-  }, []);
+  
 
   useEffect(() => {
     if (user) {
@@ -116,22 +99,41 @@ export default function ShopPage() {
           console.log("Error fetching collaboration data", err.message);
         });
     }
-  }, [seller]);
+  }, [shopCollabs]);
 
   useEffect(() => {
-    if (shop && shopCollabs.length > 0) {
+    if (shopCollabs.length > 0) {
       Axios.post(`http://localhost:3001/get-collab`, {
         collabIDs: shopCollabs,
       })
         .then((res) => {
-          console.log("Collaboration data fetched successfully", res.data);
+          console.log("Shop collab Objects fetched successfully", res.data);
           setShopCollabObjects(res.data);
         })
         .catch((err) => {
           console.log("Error fetching collaboration data", err.message);
         });
     }
-  }, []);
+  }, [shopCollabs]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (shopCollabObjects.length > 0) {
+        await Axios.post("http://localhost:3001/get-shop-products", {
+          productIDs: shopCollabObjects[0].products,
+        })
+          .then((res) => {
+            console.log("product data", res);
+            console.log("CollabObjects Here",shopCollabObjects)
+            setCollabProducts(res.data);
+          })
+          .catch((err) => {
+            console.error("Error fetching product documents ", err.message);
+          });
+      }
+    };
+    fetchData();
+  }, [shopCollabObjects]);
 
   function AlertCollabSuccess(){
     Swal.fire({
@@ -191,7 +193,7 @@ export default function ShopPage() {
     />
   ));
 
-  const collabProductArray = shopCollabObjects.map((product) => (
+  const collabProductArray = collabProducts.map((product) => (
     <CollabProduct
       key={product._id}
       cardID={product._id}
@@ -258,14 +260,14 @@ export default function ShopPage() {
             )}
           </div>
           <div className="shop--contact--details">
-            <small className="shop--mail--text" onClick={handleSections}>{shop.shopEmail}</small>
-            <small className="shop--mobile--text" onClick={handleSections}>{shop.contactNumber}</small>
+            <small className="shop--mail--text" >{shop.shopEmail}</small>
+            <small className="shop--mobile--text">{shop.contactNumber}</small>
           </div>
         </div>
       </div>
       <div className="section--breaker">
-        <span className="product--menu">Products</span>
-        {shopCollabs.length >0 && <span className="product--menu">Collaborations</span>}
+        <span className="product--menu" onClick={handleSections}>Products</span>
+        {shopCollabs.length >0 && <span className="product--menu" onClick={handleSections}>Collaborations</span>}
       </div>
       {sectionValue==false && <div className="product--container--shop--page">
         {products.length > 0 ? (
@@ -277,9 +279,12 @@ export default function ShopPage() {
       {sectionValue==true &&  <div className="product--container--shop--page">
         {shopCollabObjects.length > 0 ? (
           collabProductArray
+          
         ) : (
           <l-grid size="60" speed="1.5" color="black"></l-grid>
         )}
+        <span className="discounted--collab--price"><span className="discounted--title">Save Upto </span>: Rs.{shopCollabObjects[0].discountedPrice}</span>
+        <button className="discounted--button">Buy Now</button>
       </div>}
     </div>
   );

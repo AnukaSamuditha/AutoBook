@@ -15,9 +15,9 @@ export default function MarketShop(props){
     
     return(
         <div className="shop--container">
-      <div className="first--half" style={props.styles}>
+      <div className="first--half" >
          <div className="shop--upper">
-          <h5 className="city">Colombo</h5>
+          <h5 className="city"></h5>
           <div className="bell--holder">
           <img src={require('../Images/bookmark.svg').default} className='bell--icon'/>
           </div>

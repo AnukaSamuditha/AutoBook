@@ -78,7 +78,6 @@ export default function MarketPlace() {
           creditCard={shop.isCreditCardAvailable}
           debitCard={shop.isDebitCardAvailable}
           COD={shop.isCODAvailable}
-          styles={colorGenerator()}
           />
     })
 

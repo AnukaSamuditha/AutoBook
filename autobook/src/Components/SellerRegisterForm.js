@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import '../Styles/sellerRegisterForm.css';
 import {motion,AnimatePresence} from 'framer-motion';
 import Axios from 'axios';
+import Swal from 'sweetalert2';
 
 export default function SellerRegisterForm(props){
 
@@ -27,7 +28,25 @@ export default function SellerRegisterForm(props){
     const [OTPCode,setOTPCode]=useState("");
     const [seller,setSeller]=useState(null);
     
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
 
+      function TriggerToast(){
+        Toast.fire({
+            icon: "success",
+            title: "Seller account created successfully"
+          });
+      }
+      
     function handleChange(event){
         const {name,value}=event.target;
 
@@ -250,6 +269,7 @@ export default function SellerRegisterForm(props){
                 setSeller(sellerObject);
                 localStorage.setItem("currentSeller",sellerID);
                 console.log("Successfully created the seller account",res);
+                TriggerToast();
                 navigate('/sellerdashboard');
 
             }).catch((err)=>{
