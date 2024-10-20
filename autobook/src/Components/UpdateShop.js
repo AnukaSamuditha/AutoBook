@@ -65,9 +65,13 @@ export default function UpdateShop(props){
 
         Axios.put(`http://localhost:3001/update-shop-data/${props.shopID}`,shopData)
          .then((res)=>{
+            //setShopData(res.data.data);
             console.log("Shop data updated successfully",res.data)
-            alert("Shop data updated successfully");
+            //alert("Shop data updated successfully");
             props.toggleForm()
+            window.location.reload()
+           
+            //window.location.reload()
             //navigate('/sellerdashboard')
          }).catch((err)=>{
             console.error("Error occured while updating the shop!",err.message)
