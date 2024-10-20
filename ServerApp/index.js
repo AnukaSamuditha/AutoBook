@@ -95,6 +95,8 @@ app.post("/create-seller-account", async (req, res) => {
 });
 
 app.post("/create-collab",async (req,res)=>{
+
+  console.log(req.body);
   
   try{
     const { collabName, sellerCount, product, shopID, createdDate, createdSeller, discountedPrice, createdShop, createdShopName } = req.body;
@@ -357,6 +359,41 @@ app.put('/push-collab-req/:shopID',async (req,res)=>{
     const updatedShop=await Shop.findByIdAndUpdate(
       shopID,
       {$push:{collabRequests:collabID}},
+      {new:true}
+    )
+    if (updatedShop){
+      res.status(200).json({
+        status:"Success",
+        data:{
+          updatedShop
+        }
+      })
+    }else{
+      res.status(404).json({
+        status:"Failure",
+        message:"Shop not found"
+      })
+    }
+  }catch(err){
+    res.status(500).json({
+      status:"Failure",
+      message:"Error updating the shop",err
+    })
+  }
+
+})
+
+app.put('/push-shop-collab/:shopID',async (req,res)=>{
+
+  const {shopID}=req.params;
+  const {collaborationID}=req.body;
+
+  const collabID=new mongoose.Types.ObjectId(collaborationID)
+
+  try{
+    const updatedShop=await Shop.findByIdAndUpdate(
+      shopID,
+      {$push:{collabs:collabID}},
       {new:true}
     )
     if (updatedShop){

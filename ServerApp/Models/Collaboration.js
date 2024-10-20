@@ -37,7 +37,7 @@ const CollabSchema=new mongoose.Schema({
     },
     createdShopName:{
         type:String,
-        requried:true
+        required:true
     }
 })
 

@@ -53,6 +53,11 @@ const ShopSchema= new mongoose.Schema({
         type:mongoose.Schema.ObjectId,
         ref:'Collaboration',
         default:[]
+    }],
+    collabs:[{
+        type:mongoose.Schema.ObjectId,
+        ref:'Collaboration',
+        default:[]
     }]
 
 })

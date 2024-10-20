@@ -4,6 +4,7 @@ import NavBar from "./NavBar";
 import Axios from "axios";
 import Swal from 'sweetalert2';
 import ProductCard from "./ProductCard";
+import CollabProduct from "./CollabProduct";
 import "../Styles/ShopPage.css";
 import "ldrs/grid";
 import StartImage from "../Images/sparks-solid.svg";
@@ -22,6 +23,10 @@ export default function ShopPage() {
   const [collabs, setCollabs] = useState([]);
   const [sendButton,toggleSendButton]=useState(false);
   const [selectedCollab,setSelectedCollab]=useState("");
+  const[shopCollabs,setShopCollabs]=useState([]);
+  const[shopCollabObjects,setShopCollabObjects]=useState([]);
+  const[sectionValue,sectionToggle]=useState(false);
+  const[collabProducts,setCollabProducts]=useState([]);
 
   useEffect(() => {
     if (shopID) {
@@ -29,6 +34,7 @@ export default function ShopPage() {
         .then((res) => {
           console.log("response", res);
           setShop(res.data.data.shop);
+          setShopCollabs(res.data.data.shop.collabs);
           console.log("Shop data is fetched successfully", res.data.data);
         })
         .catch((err) => {
@@ -65,6 +71,25 @@ export default function ShopPage() {
   }, [productIDs]);
 
   useEffect(() => {
+    const fetchData = async () => {
+      if (shopCollabObjects.length > 0) {
+        await Axios.post("http://localhost:3001/get-shop-products", {
+          productIDs: shopCollabObjects[0].products,
+        })
+          .then((res) => {
+            console.log("product data", res);
+            //console.log("CollabObjects Here",shopCollabObjects)
+            setCollabProducts(res.data);
+          })
+          .catch((err) => {
+            console.error("Error fetching product documents ", err.message);
+          });
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
     if (user) {
       Axios.get(`http://localhost:3001/find-seller/${user}`)
         .then((res) => {
@@ -93,6 +118,21 @@ export default function ShopPage() {
     }
   }, [seller]);
 
+  useEffect(() => {
+    if (shop && shopCollabs.length > 0) {
+      Axios.post(`http://localhost:3001/get-collab`, {
+        collabIDs: shopCollabs,
+      })
+        .then((res) => {
+          console.log("Collaboration data fetched successfully", res.data);
+          setShopCollabObjects(res.data);
+        })
+        .catch((err) => {
+          console.log("Error fetching collaboration data", err.message);
+        });
+    }
+  }, []);
+
   function AlertCollabSuccess(){
     Swal.fire({
       title:"Success!",
@@ -102,10 +142,12 @@ export default function ShopPage() {
     })
   }
 
-  //console.log("products here", products);
-
   function handleSendButtton(){
     toggleSendButton((prevValue)=>!prevValue);
+  }
+
+  function handleSections(){
+    sectionToggle((prevValue)=>!prevValue);
   }
   
   function sendCollabRequest(){
@@ -129,7 +171,6 @@ export default function ShopPage() {
 
   }
 
-
   const productCardArray = products.map((product) => (
     <ProductCard
       key={product._id}
@@ -138,6 +179,25 @@ export default function ShopPage() {
       productName={product.productName}
       productCategory={product.productCategory}
       productPrice={product.productPrice}
+      productDescription={product.productDescription}
+      productCountry={product.productCountry}
+      productBrand={product.productBrand}
+      productQuantity={product.productQuantity}
+      productImage={product.productImage}
+      productAddedDate={product.productAddedDate}
+      isCODAvailable={shop.isCODAvailable}
+      isCreditCardAvailable={shop.isCreditCardAvailable}
+      isDebitCardAvailable={shop.isDebitCardAvailable}
+    />
+  ));
+
+  const collabProductArray = shopCollabObjects.map((product) => (
+    <CollabProduct
+      key={product._id}
+      cardID={product._id}
+      shopID={shopID}
+      productName={product.productName}
+      productCategory={product.productCategory}
       productDescription={product.productDescription}
       productCountry={product.productCountry}
       productBrand={product.productBrand}
@@ -198,18 +258,29 @@ export default function ShopPage() {
             )}
           </div>
           <div className="shop--contact--details">
-            <small className="shop--mail--text">{shop.shopEmail}</small>
-            <small className="shop--mobile--text">{shop.contactNumber}</small>
+            <small className="shop--mail--text" onClick={handleSections}>{shop.shopEmail}</small>
+            <small className="shop--mobile--text" onClick={handleSections}>{shop.contactNumber}</small>
           </div>
         </div>
       </div>
-      <div className="product--container--shop--page">
+      <div className="section--breaker">
+        <span className="product--menu">Products</span>
+        {shopCollabs.length >0 && <span className="product--menu">Collaborations</span>}
+      </div>
+      {sectionValue==false && <div className="product--container--shop--page">
         {products.length > 0 ? (
           productCardArray
         ) : (
           <l-grid size="60" speed="1.5" color="black"></l-grid>
         )}
-      </div>
+      </div>}
+      {sectionValue==true &&  <div className="product--container--shop--page">
+        {shopCollabObjects.length > 0 ? (
+          collabProductArray
+        ) : (
+          <l-grid size="60" speed="1.5" color="black"></l-grid>
+        )}
+      </div>}
     </div>
   );
 }

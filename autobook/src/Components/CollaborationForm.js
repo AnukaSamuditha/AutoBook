@@ -11,7 +11,8 @@ export default function CollaborationForm(props) {
     createdDate: "",
     createdSeller: "",
     discountedPrice: "",
-    createdShopName:""
+    createdShopName:"",
+    createdShop:""
   });
   const [products, setProducts] = useState([]);
   const [shopProducts, setShopProducts] = useState([]);
@@ -99,6 +100,16 @@ export default function CollaborationForm(props) {
       console.error("Error pushing the collaboration Id!",err);
      })
   }
+  
+  function UpdateShop(collabID){
+    Axios.put(`http://localhost:3001/push-shop-collab/${props.shopID}`,{collaborationID:collabID})
+     .then((res)=>{
+      console.log("Collab pushed into the shop successfully",res.data)
+     })
+     .catch((err)=>{
+      console.error("Error pushing the collaboration Id!",err);
+     })
+  }
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -118,6 +129,7 @@ export default function CollaborationForm(props) {
         alert("The collaboration created successfully");
         console.log("Collab was created",res.data.data._id);
         pushCollab(res.data.data._id);
+        UpdateShop(res.data.data._id);
         setCollab({
           collabName: "",
           sellerCount: 0,
@@ -130,7 +142,7 @@ export default function CollaborationForm(props) {
         props.toggleForm();
       })
       .catch((err) => {
-        console.error("Error creating the collaboration request", err);
+        console.error("Error creating the collaboration request", err.message);
       });
   }
 
@@ -172,11 +184,12 @@ export default function CollaborationForm(props) {
         <br />
         <select
           id="products"
-          name="products"
+          name="product"
           value={collab.product}
           onChange={handleProductChange}
           className="shop--collab--form--input"
         >
+          <option value="">Select a product</option>
           {ProductsArray}
         </select>
         <br />
