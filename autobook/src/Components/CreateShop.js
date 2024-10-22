@@ -35,7 +35,7 @@ export default function CreateShop(props){
     function TriggerToast(){
       Toast.fire({
           icon: "success",
-          title: "Seller account created successfully"
+          title: "Shop created successfully"
         });
     }
     

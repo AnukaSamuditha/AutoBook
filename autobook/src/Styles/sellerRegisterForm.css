@@ -116,3 +116,9 @@
     margin-top:-8px;
     margin-bottom: 5px;
 }
+.register-cross{
+    position:absolute;
+    right:0.1%;
+    top:1%;
+    cursor: pointer;
+}

@@ -291,6 +291,7 @@ export default function SellerRegisterForm(props){
     
     return(
         <div className='form--holder'>
+            <img src={require('../Images/xmark.svg').default} className='register-cross' onClick={props.toggleForm}/>
             <div className='form--content--holder'>
                 <h4 className='register--title'>Join Our Network</h4>
                 <form className='seller--register--form' autoComplete='off' onSubmit={handleSubmit}>

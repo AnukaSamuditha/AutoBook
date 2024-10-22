@@ -49,6 +49,17 @@ export default function AddProductForm(props) {
        })
     }
     function handlePhoto(event){
+      //const MAX_FILE_SIZE = 1000000; 
+    //   if (file) {
+    //     // Check if file size exceeds the limit
+    //     if (file.size > MAX_FILE_SIZE) {
+    //         setErrorMessage("File size exceeds the 1MB limit. Please choose a smaller file.");
+    //         setSelectedFile(null);
+    //     } else {
+    //         setErrorMessage("");
+    //         setSelectedFile(file);
+    //     }
+    // }
         setProduct((prevData)=>{
             return{
                 ...prevData,
