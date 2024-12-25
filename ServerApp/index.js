@@ -15,8 +15,7 @@ const { v4: uuidv4 } = require("uuid");
 app.use(express.json());
 app.use(cors());
 
-const DB =
-  "mongodb+srv://anukasamuditha:Anuka2000@cluster0.rsjix.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const DB =DB_URL
 
 mongoose
   .connect(DB, {
